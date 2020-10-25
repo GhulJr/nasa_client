@@ -19,6 +19,7 @@ class SplashActivity : AppCompatActivity() {
             .delay(1L, TimeUnit.SECONDS)
             .subscribe {
                 startActivity(it)
+            }
                 finish()
             }
     }
