@@ -8,8 +8,6 @@
     app:cardCornerRadius="@dimen/appCornerRadius">
 
     <com.google.android.material.textview.MaterialTextView
-        app:drawableStartCompat="@drawable/ic_search"
-        android:drawablePadding="@dimen/appMarginSmall"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:hint="@string/search"
@@ -18,8 +16,11 @@
         android:textColorHint="@color/textGray"
         android:textCursorDrawable="@null"
         android:background="@android:color/transparent"
-        android:padding="@dimen/appMargin"
         android:maxLines="1"
-        android:maxEms="30" />
+        android:maxEms="30"
+        android:padding="@dimen/appMargin"
+        android:drawablePadding="@dimen/appMarginSmall"
+        app:drawableStartCompat="@drawable/ic_search"
+        app:layout_scrollFlags="scroll|enterAlwaysCollapsed"/>
 
 </com.google.android.material.card.MaterialCardView>

@@ -6,4 +6,5 @@
     <dimen name="appCornerRadius">8dp</dimen>
     <dimen name="searchTextSize">16sp</dimen>
     <dimen name="searchIconSize">16sp</dimen>
+    <dimen name="apodHeaderSize">250dp</dimen>
 </resources>
