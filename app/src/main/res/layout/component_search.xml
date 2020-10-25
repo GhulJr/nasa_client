@@ -1,14 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_height="wrap_content"
     android:layout_width="match_parent"
-    android:background="@color/colorPrimary">
+    android:layout_margin="@dimen/appMargin"
+    app:cardBackgroundColor="@color/colorPrimary"
+    app:cardCornerRadius="@dimen/appCornerRadius">
 
-    <EditText
-        android:layout_width="wrap_content"
+    <com.google.android.material.textview.MaterialTextView
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/colorPrimary"
-        android:backgroundTint="@color/colorPrimary"
-        android:hint="@string/search" />
+        android:hint="@string/search"
+        android:textColor="@color/textGray"
+        android:textColorHint="@color/textGray"
+        android:textCursorDrawable="@null"
+        android:background="@android:color/transparent"
+        android:padding="@dimen/appMargin"
+        android:maxLines="1"
+        android:maxEms="30"
+        />
 
-</androidx.cardview.widget.CardView>
+</com.google.android.material.card.MaterialCardView>

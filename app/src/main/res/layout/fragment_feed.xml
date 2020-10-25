@@ -3,9 +3,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.main.search.FeedFragment">
 
-    <include layout="@layout/component_search"/>
+    <include layout="@layout/component_search"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_margin="@dimen/appMargin"
+        app:layout_constraintTop_toTopOf="parent"
+        />
 
 
 
