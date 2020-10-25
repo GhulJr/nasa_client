@@ -12,6 +12,7 @@
         android:layout_height="wrap_content">
 
         <ImageView
+            android:id="@+id/apodHeaderImage"
             android:layout_width="0dp"
             android:layout_height="@dimen/apodHeaderSize"
             app:layout_constraintTop_toTopOf="parent"
@@ -20,6 +21,15 @@
             app:layout_constraintEnd_toEndOf="parent"
             android:scaleType="centerCrop"
             android:src="@drawable/apod_sample"/>
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="@dimen/apodHeaderSize"
+            android:background="@drawable/shadow_gradient"
+            app:layout_constraintTop_toTopOf="@id/apodHeaderImage"
+            app:layout_constraintBottom_toBottomOf="@id/apodHeaderImage"
+            app:layout_constraintStart_toStartOf="@id/apodHeaderImage"
+            app:layout_constraintEnd_toEndOf="@id/apodHeaderImage" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
