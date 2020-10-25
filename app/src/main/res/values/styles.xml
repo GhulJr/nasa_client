@@ -5,8 +5,6 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
-        <item name="statusBarBackground">@android:color/transparent</item>
-        <item name="android:windowBackground">@drawable/main_background</item>
-
+        <item name="android:windowBackground">@color/colorPrimaryDark</item>
     </style>
 </resources>
