@@ -16,6 +16,7 @@
 
     <color name="blue_nasa">#0b3d91</color>
     <color name="red_nasa">#fc3d21</color>
+    <color name="red_nasa_transparent">#aafc3d21</color>
 
     <color name="white_50">#ffffff</color>
 

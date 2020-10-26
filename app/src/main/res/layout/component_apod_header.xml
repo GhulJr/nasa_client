@@ -37,8 +37,7 @@
             android:layout_marginStart="@dimen/appMargin"
             android:layout_marginBottom="8dp"
             app:layout_constraintBottom_toTopOf="@id/apodTitle"
-            app:layout_constraintStart_toStartOf="@id/apodHeaderImage"
-            />
+            app:layout_constraintStart_toStartOf="@id/apodHeaderImage" />
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/apodTitle"
@@ -54,8 +53,7 @@
             android:layout_marginStart="@dimen/appMargin"
             android:layout_marginBottom="4dp"
             app:layout_constraintBottom_toTopOf="@id/apodDate"
-            app:layout_constraintStart_toStartOf="@id/apodHeaderImage"
-           />
+            app:layout_constraintStart_toStartOf="@id/apodHeaderImage" />
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/apodDate"
@@ -67,8 +65,7 @@
             android:textSize="14sp"
             android:text="22.10.2020"
             app:layout_constraintBottom_toBottomOf="@id/apodHeaderImage"
-            app:layout_constraintStart_toStartOf="@id/apodHeaderImage"
-            />
+            app:layout_constraintStart_toStartOf="@id/apodHeaderImage" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
