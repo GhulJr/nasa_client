@@ -20,7 +20,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             android:scaleType="centerCrop"
-            android:src="@drawable/apod_sample"/>
+            android:src="@drawable/apod_sample2"/>
 
         <View
             android:layout_width="0dp"

@@ -28,46 +28,50 @@
             android:padding="@dimen/appMargin">
 
             <include layout="@layout/component_apod_header"
-                android:id="@+id/search0"
+                android:id="@+id/apodHeader"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/appMargin"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <include layout="@layout/component_apod_header"
-                android:id="@+id/search1"
-                android:layout_width="match_parent"
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/savedMTV"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textColor="@color/white_50"
+                android:textSize="32sp"
+                android:textStyle="bold"
+                android:text="Archive"
                 android:layout_marginTop="@dimen/appMargin"
-                app:layout_constraintTop_toBottomOf="@id/search0" />
+                android:layout_marginBottom="@dimen/appMargin"
+                app:layout_constraintTop_toBottomOf="@id/apodHeader"
+                app:layout_constraintStart_toStartOf="parent"/>
 
-            <include layout="@layout/component_apod_header"
-                android:id="@+id/search2"
-                android:layout_width="match_parent"
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tagsMTV"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textColor="@color/white_50"
+                android:textSize="32sp"
+                android:textStyle="bold"
+                android:text="Recent tags"
                 android:layout_marginTop="@dimen/appMargin"
-                app:layout_constraintTop_toBottomOf="@id/search1" />
+                android:layout_marginBottom="@dimen/appMargin"
+                app:layout_constraintTop_toBottomOf="@id/savedMTV"
+                app:layout_constraintStart_toStartOf="parent"/>
 
-            <include layout="@layout/component_apod_header"
-                android:id="@+id/search3"
-                android:layout_width="match_parent"
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textColor="@color/white_50"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                android:text="#apollo"
                 android:layout_marginTop="@dimen/appMargin"
-                app:layout_constraintTop_toBottomOf="@id/search2" />
+                android:layout_marginBottom="@dimen/appMargin"
+                app:layout_constraintTop_toBottomOf="@id/tagsMTV"
+                app:layout_constraintStart_toStartOf="parent"/>
 
-            <include layout="@layout/component_apod_header"
-                android:id="@+id/search4"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/appMargin"
-                app:layout_constraintTop_toBottomOf="@id/search3" />
-
-            <include layout="@layout/component_apod_header"
-                android:id="@+id/search5"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/appMargin"
-                app:layout_constraintTop_toBottomOf="@id/search3" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
