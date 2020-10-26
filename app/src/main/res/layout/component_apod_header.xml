@@ -31,6 +31,36 @@
             app:layout_constraintStart_toStartOf="@id/apodHeaderImage"
             app:layout_constraintEnd_toEndOf="@id/apodHeaderImage" />
 
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/apodTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white_50"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:text="Reflections of the Ghost Nebula"
+            android:maxLines="2"
+            android:maxEms="8"
+            android:ellipsize="end"
+            android:layout_marginStart="@dimen/appMargin"
+
+            app:layout_constraintBottom_toTopOf="@id/apodDate"
+            app:layout_constraintStart_toStartOf="@id/apodHeaderImage"
+           />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/apodDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/appMargin"
+            android:layout_marginBottom="@dimen/appMargin"
+            android:textColor="@color/white_50"
+            android:textSize="14sp"
+            android:text="22.10.2020"
+            app:layout_constraintBottom_toBottomOf="@id/apodHeaderImage"
+            app:layout_constraintStart_toStartOf="@id/apodHeaderImage"
+            />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </com.google.android.material.card.MaterialCardView>
