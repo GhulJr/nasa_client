@@ -7,4 +7,5 @@
     <dimen name="searchTextSize">16sp</dimen>
     <dimen name="searchIconSize">16sp</dimen>
     <dimen name="apodHeaderSize">250dp</dimen>
+    <dimen name="default_topbar_size">54dp</dimen>
 </resources>

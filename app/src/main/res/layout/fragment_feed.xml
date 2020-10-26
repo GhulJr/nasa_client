@@ -1,34 +1,81 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
+    <include layout="@layout/component_search"
+        android:id="@+id/search"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/appMargin"
+        android:layout_width="match_parent"
+        android:layout_marginTop="@dimen/appMargin"
+        android:layout_marginStart="@dimen/appMargin"
+        android:layout_marginEnd="@dimen/appMargin"
+        app:layout_constraintTop_toTopOf="parent" />
 
-        tools:context=".ui.main.search.FeedFragment">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-        <include layout="@layout/component_search"
-            android:id="@+id/search"
-            android:layout_height="wrap_content"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <include layout="@layout/component_apod_header"
-            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/appMargin"
-            app:layout_constraintTop_toBottomOf="@id/search" />
+            android:layout_marginTop="@dimen/default_topbar_size"
+            tools:context=".ui.main.search.FeedFragment"
+            android:padding="@dimen/appMargin">
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <include layout="@layout/component_apod_header"
+                android:id="@+id/search0"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/appMargin"
+                app:layout_constraintTop_toTopOf="parent" />
 
-</ScrollView>
+            <include layout="@layout/component_apod_header"
+                android:id="@+id/search1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/appMargin"
+                app:layout_constraintTop_toBottomOf="@id/search0" />
+
+            <include layout="@layout/component_apod_header"
+                android:id="@+id/search2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/appMargin"
+                app:layout_constraintTop_toBottomOf="@id/search1" />
+
+            <include layout="@layout/component_apod_header"
+                android:id="@+id/search3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/appMargin"
+                app:layout_constraintTop_toBottomOf="@id/search2" />
+
+            <include layout="@layout/component_apod_header"
+                android:id="@+id/search4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/appMargin"
+                app:layout_constraintTop_toBottomOf="@id/search3" />
+
+            <include layout="@layout/component_apod_header"
+                android:id="@+id/search5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/appMargin"
+                app:layout_constraintTop_toBottomOf="@id/search3" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+
 
 
 
