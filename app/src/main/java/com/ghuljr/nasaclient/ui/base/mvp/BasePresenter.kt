@@ -1,4 +1,4 @@
-package com.ghuljr.nasaclient.ui.base
+package com.ghuljr.nasaclient.ui.base.mvp
 
 import androidx.annotation.CallSuper
 
