@@ -2,6 +2,7 @@ package com.ghuljr.nasaclient.di
 
 import android.content.Context
 import com.ghuljr.nasaclient.BuildConfig
+import com.ghuljr.nasaclient.data.source.remote.NasaService
 import okhttp3.Cache
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -12,7 +13,8 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 val networkModule = module {
     single { provideCache(get()) }
     single { provideOkHttp(get()) }
-    single { provideRetrofit(get())}
+    single { provideRetrofit(get()) }
+    single { provideNasaService(get()) }
 }
 
 private fun provideCache(context: Context): Cache = Cache(context.cacheDir, 1024 * 1024)
@@ -27,3 +29,5 @@ private fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit = Retrofit.Bui
     .client(okHttpClient)
     .addConverterFactory(MoshiConverterFactory.create())
     .build()
+
+private fun provideNasaService(retrofit: Retrofit) = retrofit.create(NasaService::class.java)
