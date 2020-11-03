@@ -2,13 +2,6 @@ package com.ghuljr.nasaclient.ui.base.mvp
 
 import androidx.annotation.CallSuper
 
-interface PresenterContract<VIEW> {
-    fun attach(view: VIEW, retainedState: RetainedState)
-    fun detach()
-    fun onViewAttached()
-    fun onViewDetached()
-}
-
 abstract class BasePresenter<VIEW>: PresenterContract<VIEW> {
 
     protected var view: VIEW? = null
@@ -31,4 +24,11 @@ abstract class BasePresenter<VIEW>: PresenterContract<VIEW> {
 
     @CallSuper
     override fun onViewDetached() { /* Do nothing*/ }
+}
+
+interface PresenterContract<VIEW> {
+    fun attach(view: VIEW, retainedState: RetainedState)
+    fun detach()
+    fun onViewAttached()
+    fun onViewDetached()
 }

@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/feedFragment"
-        android:name="com.ghuljr.nasaclient.ui.main.search.FeedFragment"
+        android:name="com.ghuljr.nasaclient.ui.main.FeedFragment"
         android:label="fragment_feed"
         tools:layout="@layout/fragment_feed" />
 </navigation>

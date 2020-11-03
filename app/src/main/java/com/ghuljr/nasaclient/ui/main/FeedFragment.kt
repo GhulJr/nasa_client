@@ -1,4 +1,4 @@
-package com.ghuljr.nasaclient.ui.main.search
+package com.ghuljr.nasaclient.ui.main
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -6,8 +6,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.ghuljr.nasaclient.R
+import com.ghuljr.nasaclient.ui.base.mvp.BaseView
 
-class FeedFragment : Fragment() {
+class FeedFragment : Fragment(), FeedView {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -16,8 +17,17 @@ class FeedFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_feed, container, false)
     }
 
+    override fun getPresenter(): FeedPresenter {
+        TODO("Not implemented yet")
+    }
+
     companion object {
         @JvmStatic
-        fun newInstance(param1: String, param2: String) = FeedFragment()
+        fun newInstance() = FeedFragment()
     }
+
+}
+
+interface FeedView : BaseView<FeedPresenter> {
+
 }

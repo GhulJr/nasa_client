@@ -24,7 +24,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/default_topbar_size"
-            tools:context=".ui.main.search.FeedFragment"
+            tools:context=".ui.main.FeedFragment"
             android:padding="@dimen/appMargin">
 
             <include layout="@layout/component_apod_header"
