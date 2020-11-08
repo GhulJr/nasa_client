@@ -23,7 +23,7 @@ class FeedFragment : Fragment(), FeedView {
 
     private val feedPresenter: FeedPresenter by inject()
     private val retainedState: RetainedState by viewModels()
-    private lateinit var lifecycleObserver: MVPLifecycleObserver<FeedView, FeedPresenter> //by lazy { getLifecycleObserver() }
+    private val lifecycleObserver: MVPLifecycleObserver<FeedView, FeedPresenter> by lazy { getLifecycleObserver() }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -34,8 +34,8 @@ class FeedFragment : Fragment(), FeedView {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        lifecycleObserver = getLifecycleObserver()
         viewLifecycleOwner.lifecycle.addObserver(lifecycleObserver)
+        feedPresenter.fetchApod()
     }
 
     override fun diplayApod(apod: ApodModel) {

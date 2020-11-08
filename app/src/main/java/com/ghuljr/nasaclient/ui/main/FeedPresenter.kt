@@ -20,7 +20,6 @@ class FeedPresenter(
         .switchMap {
             nasaRepository.fetchApod().toObservable()
         }
-        .doOnNext { Log.i(TAG, "check1") }
         .repeat(1).share()
 
     private val apodSuccessObserver: Observable<ApodModel> = apodObservable
@@ -43,8 +42,6 @@ class FeedPresenter(
         super.onViewAttached()
 
         disposable.set(CompositeDisposable(
-            fetchApodSubject.subscribe(),
-            apodObservable.subscribe(),
             apodSuccessObserver.subscribe { view?.diplayApod(it) },
             apodLoadingObserver.subscribe { view?.displayLoading(it) },
             apodErrorObservable.subscribe {  }
