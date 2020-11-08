@@ -25,6 +25,19 @@ private fun provideOkHttp(cache: Cache): OkHttpClient  {
     loggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
     return OkHttpClient.Builder()
         .addInterceptor(loggingInterceptor)
+        .addInterceptor { chain ->
+            val original = chain.request()
+
+            val url = original.url.newBuilder()
+                .addQueryParameter(API_KEY, BuildConfig.API_KEY)
+                .build()
+
+            val request = original.newBuilder()
+                .url(url)
+                .build()
+
+            return@addInterceptor chain.proceed(request)
+        }
         .cache(cache)
         .build()
 }
@@ -37,3 +50,5 @@ private fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit = Retrofit.Bui
     .build()
 
 private fun provideNasaService(retrofit: Retrofit) = retrofit.create(NasaService::class.java)
+
+private const val API_KEY = "api_key"
