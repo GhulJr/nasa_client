@@ -12,6 +12,5 @@ class NasaRepositoryImpl(
     override fun fetchApod(): Single<Resource<ApodModel>> = nasaService.fetchApod()
         .subscribeOn(Schedulers.io())
         .map { Resource.create(it) }
-        .observeOn(Schedulers.io())
-
+        .onErrorReturn { Resource.create(it) }
 }

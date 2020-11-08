@@ -1,11 +1,14 @@
 package com.ghuljr.nasaclient.ui.base.mvp
 
 import androidx.annotation.CallSuper
+import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.disposables.SerialDisposable
 
 abstract class BasePresenter<VIEW>: PresenterContract<VIEW> {
 
     protected var view: VIEW? = null
     protected var retainedState: RetainedState? = null
+    protected  var disposable: SerialDisposable = SerialDisposable()
 
     override fun attach(view: VIEW, retainedState: RetainedState) {
         this.view = view
@@ -20,10 +23,10 @@ abstract class BasePresenter<VIEW>: PresenterContract<VIEW> {
     }
 
     @CallSuper
-    override fun onViewAttached() { /* Do nothing*/ }
+    override fun onViewAttached() { disposable.set(CompositeDisposable()) }
 
     @CallSuper
-    override fun onViewDetached() { /* Do nothing*/ }
+    override fun onViewDetached() { disposable.set(CompositeDisposable()) }
 }
 
 interface PresenterContract<VIEW> {
