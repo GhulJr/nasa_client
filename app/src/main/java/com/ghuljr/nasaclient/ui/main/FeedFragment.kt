@@ -12,6 +12,7 @@ import com.ghuljr.nasaclient.ui.base.mvp.BaseView
 import com.ghuljr.nasaclient.ui.base.mvp.MVPLifecycleObserver
 import com.ghuljr.nasaclient.ui.base.mvp.RetainedState
 import com.ghuljr.nasaclient.utils.getLifecycleObserver
+import com.ghuljr.nasaclient.utils.loadImage
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.component_apod_header.view.*
 import kotlinx.android.synthetic.main.fragment_feed.*
@@ -46,6 +47,7 @@ class FeedFragment : Fragment(), FeedView {
         with(apodHeader) {
             apodTitle.text = apod.title
             apodDate.text = apod.date
+            apodHeaderImage.loadImage(apod.url)
         }
     }
 
