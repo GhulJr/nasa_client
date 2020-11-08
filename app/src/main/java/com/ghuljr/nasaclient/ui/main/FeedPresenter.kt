@@ -28,13 +28,26 @@ class FeedPresenter(
         .map { it.data!! }
         .observeOn(Schedulers.io())
 
+    private val apodLoadingObserver: Observable<Boolean> = apodObservable
+        .map { it is Resource.Loading }
+        .observeOn(Schedulers.io())
+
+
+    private val apodErrorObservable: Observable<Unit> = apodObservable
+        .filter { it is Resource.Error }
+        .map { Unit }
+        .observeOn(Schedulers.io())
+
+
     override fun onViewAttached() {
         super.onViewAttached()
 
         disposable.set(CompositeDisposable(
             fetchApodSubject.subscribe(),
             apodObservable.subscribe(),
-            apodSuccessObserver.subscribe { view?.diplayApod(it) }
+            apodSuccessObserver.subscribe { view?.diplayApod(it) },
+            apodLoadingObserver.subscribe { view?.displayLoading(it) },
+            apodErrorObservable.subscribe {  }
         ))
 
     }

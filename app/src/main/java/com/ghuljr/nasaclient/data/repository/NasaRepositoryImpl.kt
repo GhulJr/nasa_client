@@ -1,5 +1,6 @@
 package com.ghuljr.nasaclient.data.repository
 
+import android.util.Log
 import com.ghuljr.nasaclient.data.model.ApodModel
 import com.ghuljr.nasaclient.data.source.Resource
 import com.ghuljr.nasaclient.data.source.remote.NasaService
@@ -12,5 +13,12 @@ class NasaRepositoryImpl(
     override fun fetchApod(): Single<Resource<ApodModel>> = nasaService.fetchApod()
         .subscribeOn(Schedulers.io())
         .map { Resource.create(it) }
-        .onErrorReturn { Resource.create(it) }
+        .onErrorReturn {
+            Log.e(TAG, "Fetch APoD error", it)
+            Resource.create(it)
+        }
+
+    companion object {
+        private const val TAG = "NasaRepositoryImpl"
+    }
 }

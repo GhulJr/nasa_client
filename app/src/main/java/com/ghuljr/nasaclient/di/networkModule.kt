@@ -12,9 +12,9 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 
 val networkModule = module {
     single { provideCache(get()) }
-    single { provideOkHttp(get()) }
+    factory { provideOkHttp(get()) }
     single { provideRetrofit(get()) }
-    single { provideNasaService(get()) }
+    factory { provideNasaService(get()) }
 }
 
 private fun provideCache(context: Context): Cache = Cache(context.cacheDir, 1024 * 1024)

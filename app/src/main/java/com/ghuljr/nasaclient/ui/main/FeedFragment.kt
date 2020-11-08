@@ -16,13 +16,14 @@ import org.koin.android.ext.android.inject
 
 interface FeedView : BaseView<FeedPresenter> {
     fun diplayApod(apod: ApodModel)
+    fun displayLoading(isLoading: Boolean)
 }
 
 class FeedFragment : Fragment(), FeedView {
 
     private val feedPresenter: FeedPresenter by inject()
     private val retainedState: RetainedState by viewModels()
-    private val lifecycleObserver: MVPLifecycleObserver<FeedView, FeedPresenter> by lazy { getLifecycleObserver() }
+    private lateinit var lifecycleObserver: MVPLifecycleObserver<FeedView, FeedPresenter> //by lazy { getLifecycleObserver() }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -33,11 +34,14 @@ class FeedFragment : Fragment(), FeedView {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        lifecycleObserver = getLifecycleObserver()
         viewLifecycleOwner.lifecycle.addObserver(lifecycleObserver)
     }
 
     override fun diplayApod(apod: ApodModel) {
+    }
 
+    override fun displayLoading(isLoading: Boolean) {
     }
 
     override fun getPresenter(): FeedPresenter = feedPresenter
@@ -47,5 +51,4 @@ class FeedFragment : Fragment(), FeedView {
         @JvmStatic
         fun newInstance() = FeedFragment()
     }
-
 }
