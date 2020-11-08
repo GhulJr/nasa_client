@@ -12,10 +12,14 @@ import com.ghuljr.nasaclient.ui.base.mvp.BaseView
 import com.ghuljr.nasaclient.ui.base.mvp.MVPLifecycleObserver
 import com.ghuljr.nasaclient.ui.base.mvp.RetainedState
 import com.ghuljr.nasaclient.utils.getLifecycleObserver
+import com.google.android.material.snackbar.Snackbar
+import kotlinx.android.synthetic.main.component_apod_header.view.*
+import kotlinx.android.synthetic.main.fragment_feed.*
 import org.koin.android.ext.android.inject
 
 interface FeedView : BaseView<FeedPresenter> {
     fun diplayApod(apod: ApodModel)
+    fun displayApodError()
     fun displayLoading(isLoading: Boolean)
 }
 
@@ -39,9 +43,19 @@ class FeedFragment : Fragment(), FeedView {
     }
 
     override fun diplayApod(apod: ApodModel) {
+        with(apodHeader) {
+            apodTitle.text = apod.title
+            apodDate.text = apod.date
+        }
+    }
+
+    override fun displayApodError() {
+        Snackbar.make(apodRoot, R.string.apod_fetch_error, Snackbar.LENGTH_INDEFINITE)
+            .setAction(R.string.retry) { feedPresenter.fetchApod() }
     }
 
     override fun displayLoading(isLoading: Boolean) {
+        TODO("Not yet implemented")
     }
 
     override fun getPresenter(): FeedPresenter = feedPresenter

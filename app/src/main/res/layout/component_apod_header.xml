@@ -9,18 +9,19 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="@color/colorBackground">
 
         <ImageView
             android:id="@+id/apodHeaderImage"
             android:layout_width="0dp"
             android:layout_height="@dimen/apodHeaderSize"
+            android:scaleType="centerCrop"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:scaleType="centerCrop"
-            android:src="@drawable/apod_sample2"/>
+            tools:src="@drawable/apod_sample2"/>
 
         <View
             android:layout_width="0dp"
@@ -46,14 +47,14 @@
             android:textColor="@color/white_50"
             android:textSize="20sp"
             android:textStyle="bold"
-            android:text="Reflections of the Ghost Nebula Nebula Nebula Nebula"
             android:maxLines="2"
             android:maxEms="10"
             android:ellipsize="end"
             android:layout_marginStart="@dimen/appMargin"
             android:layout_marginBottom="4dp"
             app:layout_constraintBottom_toTopOf="@id/apodDate"
-            app:layout_constraintStart_toStartOf="@id/apodHeaderImage" />
+            app:layout_constraintStart_toStartOf="@id/apodHeaderImage"
+            tools:text="Reflections of the Ghost Nebula Nebula Nebula Nebula" />
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/apodDate"
@@ -63,9 +64,9 @@
             android:layout_marginBottom="@dimen/appMargin"
             android:textColor="@color/white_50"
             android:textSize="14sp"
-            android:text="22.10.2020"
             app:layout_constraintBottom_toBottomOf="@id/apodHeaderImage"
-            app:layout_constraintStart_toStartOf="@id/apodHeaderImage" />
+            app:layout_constraintStart_toStartOf="@id/apodHeaderImage"
+            tools:text="22.10.2020" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

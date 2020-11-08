@@ -5,7 +5,9 @@ import com.ghuljr.nasaclient.data.model.ApodModel
 import com.ghuljr.nasaclient.data.repository.NasaRepository
 import com.ghuljr.nasaclient.data.source.Resource
 import com.ghuljr.nasaclient.ui.base.mvp.BasePresenter
+import io.objectbox.android.AndroidScheduler
 import io.reactivex.Observable
+import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.BehaviorSubject
@@ -17,20 +19,13 @@ class FeedPresenter(
     private val fetchApodSubject: BehaviorSubject<Unit> = BehaviorSubject.create()
 
     private val apodObservable: Observable<Resource<ApodModel>> = fetchApodSubject
-        .switchMap {
-            nasaRepository.fetchApod().toObservable()
-        }
+        .switchMap { nasaRepository.fetchApod().toObservable() }
         .repeat(1).share()
 
     private val apodSuccessObserver: Observable<ApodModel> = apodObservable
         .filter { it is Resource.Success && it.data != null }
         .map { it.data!! }
-        .observeOn(Schedulers.io())
-
-    private val apodLoadingObserver: Observable<Boolean> = apodObservable
-        .map { it is Resource.Loading }
-        .observeOn(Schedulers.io())
-
+        .observeOn(AndroidSchedulers.mainThread())
 
     private val apodErrorObservable: Observable<Unit> = apodObservable
         .filter { it is Resource.Error }
@@ -43,8 +38,7 @@ class FeedPresenter(
 
         disposable.set(CompositeDisposable(
             apodSuccessObserver.subscribe { view?.diplayApod(it) },
-            apodLoadingObserver.subscribe { view?.displayLoading(it) },
-            apodErrorObservable.subscribe {  }
+            apodErrorObservable.subscribe { view }
         ))
 
     }
