@@ -40,7 +40,7 @@ class FeedFragment : Fragment(), FeedView {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewLifecycleOwner.lifecycle.addObserver(lifecycleObserver)
-        feedPresenter.fetchApod()
+        feedPresenter.initApod()
     }
 
     override fun diplayApod(apod: ApodModel) {
@@ -53,7 +53,7 @@ class FeedFragment : Fragment(), FeedView {
 
     override fun displayApodError() {
         Snackbar.make(apodRoot, R.string.apod_fetch_error, Snackbar.LENGTH_INDEFINITE)
-            .setAction(R.string.retry) { feedPresenter.fetchApod() }
+            .setAction(R.string.retry) { feedPresenter.refreshApod() }
     }
 
     override fun displayLoading(isLoading: Boolean) {

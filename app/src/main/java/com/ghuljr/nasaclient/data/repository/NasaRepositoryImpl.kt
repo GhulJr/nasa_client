@@ -5,6 +5,7 @@ import com.ghuljr.nasaclient.data.model.ApodModel
 import com.ghuljr.nasaclient.data.source.Resource
 import com.ghuljr.nasaclient.data.source.remote.NasaService
 import com.ghuljr.nasaclient.data.source.storage.StorageManager
+import io.reactivex.Flowable
 import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers
 
@@ -19,6 +20,11 @@ class NasaRepositoryImpl(
             Log.e(TAG, "Fetch APoD error", it)
             Resource.create(it)
         }
+
+    override fun getApod(): Single<ApodModel> {
+        TODO("Not yet implemented")
+    }
+
 
     companion object {
         private const val TAG = "NasaRepositoryImpl"

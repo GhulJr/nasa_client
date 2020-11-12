@@ -1,11 +1,9 @@
 package com.ghuljr.nasaclient.ui.main
 
-import android.util.Log
 import com.ghuljr.nasaclient.data.model.ApodModel
 import com.ghuljr.nasaclient.data.repository.NasaRepository
 import com.ghuljr.nasaclient.data.source.Resource
 import com.ghuljr.nasaclient.ui.base.mvp.BasePresenter
-import io.objectbox.android.AndroidScheduler
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -16,18 +14,28 @@ class FeedPresenter(
     private val nasaRepository: NasaRepository
 ) : BasePresenter<FeedView>() {
 
-    private val fetchApodSubject: BehaviorSubject<Unit> = BehaviorSubject.create()
+    private val refreshApodSubject: BehaviorSubject<Unit> = BehaviorSubject.create()
+    private val initApodSubject: BehaviorSubject<Unit> = BehaviorSubject.create()
 
-    private val apodObservable: Observable<Resource<ApodModel>> = fetchApodSubject
-        .switchMap { nasaRepository.fetchApod().toObservable() }
+    private val initApodObservable: Observable<ApodModel> = initApodSubject
+        .flatMap { nasaRepository.getApod().toObservable() }
+        .take(1)
+        .observeOn(Schedulers.io())
+
+    private val refreshApodObservable: Observable<Resource<ApodModel>> = refreshApodSubject
+        .switchMap { nasaRepository.fetchApod().toObservable().startWith(Resource.Loading()) }
         .repeat(1).share()
 
-    private val apodSuccessObserver: Observable<ApodModel> = apodObservable
+    private val refreshApodSuccessObservable: Observable<ApodModel> = refreshApodObservable
         .filter { it is Resource.Success && it.data != null }
         .map { it.data!! }
         .observeOn(AndroidSchedulers.mainThread())
 
-    private val apodErrorObservable: Observable<Unit> = apodObservable
+    private val refreshApodLoadingObservable: Observable<Boolean> = refreshApodObservable
+        .map { it is Resource.Loading }
+        .observeOn(Schedulers.io())
+
+    private val refreshApodErrorObservable: Observable<Unit> = refreshApodObservable
         .filter { it is Resource.Error }
         .map { Unit }
         .observeOn(Schedulers.io())
@@ -37,13 +45,17 @@ class FeedPresenter(
         super.onViewAttached()
 
         disposable.set(CompositeDisposable(
-            apodSuccessObserver.subscribe { view?.diplayApod(it) },
-            apodErrorObservable.subscribe { view }
+            initApodObservable.subscribe { view?.diplayApod(it) },
+            refreshApodSuccessObservable.subscribe { view?.diplayApod(it) },
+            refreshApodErrorObservable.subscribe { /* TODO: display snackbar */ },
+            refreshApodLoadingObservable.subscribe { /*TODO: make skeleton loader*/ }
+
         ))
 
     }
 
-    fun fetchApod(): Unit = fetchApodSubject.onNext(Unit)
+    fun refreshApod(): Unit = refreshApodSubject.onNext(Unit)
+    fun initApod(): Unit = initApodSubject.onNext(Unit)
 
 
     companion object {
