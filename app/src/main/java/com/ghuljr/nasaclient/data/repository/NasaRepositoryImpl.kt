@@ -4,12 +4,14 @@ import android.util.Log
 import com.ghuljr.nasaclient.data.model.ApodModel
 import com.ghuljr.nasaclient.data.source.Resource
 import com.ghuljr.nasaclient.data.source.remote.NasaService
+import com.ghuljr.nasaclient.data.source.storage.StorageManager
 import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers
 
 class NasaRepositoryImpl(
-    private val nasaService: NasaService
-): NasaRepository {
+    private val nasaService: NasaService,
+    private val storageManager: StorageManager
+) : NasaRepository {
     override fun fetchApod(): Single<Resource<ApodModel>> = nasaService.fetchApod()
         .subscribeOn(Schedulers.io())
         .map { Resource.create(it) }
