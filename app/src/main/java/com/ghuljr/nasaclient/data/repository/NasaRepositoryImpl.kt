@@ -28,5 +28,6 @@ class NasaRepositoryImpl(
 
     companion object {
         private const val TAG = "NasaRepositoryImpl"
+        private const val dayTimestamp = 60*60*24
     }
 }

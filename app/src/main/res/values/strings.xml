@@ -5,5 +5,6 @@
     <string name="search">Search</string>
     <string name="apod_label">APoD</string>
     <string name="apod_fetch_error">Unable to fetch latest APoD.</string>
+    <string name="apod_up_to_date">APoD is up to date.</string>
     <string name="retry">Retry</string>
 </resources>

@@ -14,6 +14,4 @@ data class ApodModel(
     @Json(name = "media_type") val mediaType: String,
     val title: String,
     val url: String
-) {
-    val j = 1
-}
+)

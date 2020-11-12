@@ -20,7 +20,7 @@ class FeedPresenter(
     private val initApodObservable: Observable<ApodModel> = initApodSubject
         .flatMap { nasaRepository.getApod().toObservable() }
         .take(1)
-        .observeOn(Schedulers.io())
+        .observeOn(AndroidSchedulers.mainThread())
 
     private val refreshApodObservable: Observable<Resource<ApodModel>> = refreshApodSubject
         .switchMap { nasaRepository.fetchApod().toObservable().startWith(Resource.Loading()) }
