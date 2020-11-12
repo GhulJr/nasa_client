@@ -5,7 +5,7 @@
   "entities": [
     {
       "id": "1:5416774124151556504",
-      "lastPropertyId": "7:4952656892215047759",
+      "lastPropertyId": "6:7894549345868256475",
       "name": "ApodModel",
       "properties": [
         {
@@ -38,12 +38,6 @@
           "id": "6:7894549345868256475",
           "name": "url",
           "type": 9
-        },
-        {
-          "id": "7:4952656892215047759",
-          "name": "j",
-          "type": 5,
-          "flags": 4
         }
       ],
       "relations": []

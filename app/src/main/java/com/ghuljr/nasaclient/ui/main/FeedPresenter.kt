@@ -49,7 +49,6 @@ class FeedPresenter(
             refreshApodSuccessObservable.subscribe { view?.diplayApod(it) },
             refreshApodErrorObservable.subscribe { /* TODO: display snackbar */ },
             refreshApodLoadingObservable.subscribe { /*TODO: make skeleton loader*/ }
-
         ))
 
     }

@@ -15,5 +15,5 @@ data class ApodModel(
     val title: String,
     val url: String
 ) {
-
+    val j = 1
 }

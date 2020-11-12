@@ -22,7 +22,7 @@ class NasaRepositoryImpl(
         }
 
     override fun getApod(): Single<ApodModel> {
-        TODO("Not yet implemented")
+        return storageManager.getLatestApod()
     }
 
 
