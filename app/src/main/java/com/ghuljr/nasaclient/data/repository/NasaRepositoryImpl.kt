@@ -8,7 +8,6 @@ import com.ghuljr.nasaclient.data.source.storage.StorageManager
 import com.ghuljr.nasaclient.utils.DAY_TIMESTAMP
 import com.ghuljr.nasaclient.utils.isDateExpired
 import com.ghuljr.nasaclient.utils.toVoid
-import io.reactivex.Flowable
 import io.reactivex.Observable
 import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers
@@ -17,6 +16,7 @@ class NasaRepositoryImpl(
     private val nasaService: NasaService,
     private val storageManager: StorageManager
 ) : NasaRepository {
+
     override fun fetchApod(): Single<Resource<ApodModel>> = nasaService.fetchApod()
         .subscribeOn(Schedulers.io())
         .map { Resource.create(it) }
@@ -29,7 +29,7 @@ class NasaRepositoryImpl(
         return storageManager.getLatestApod()
     }
 
-    override fun updateApodList(): Observable<Resource<Void>> = storageManager.getApods()
+    override fun updateApodList(): Observable<Resource<Void>> = storageManager.getApodsSortedByDate()
         .flatMap {
             if (it.isEmpty() || it.first().date.isDateExpired(DAY_TIMESTAMP))
                 fetchApod().toObservable()

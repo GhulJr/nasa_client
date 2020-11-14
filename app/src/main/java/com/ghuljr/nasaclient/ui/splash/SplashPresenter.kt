@@ -6,16 +6,18 @@ import com.ghuljr.nasaclient.ui.base.mvp.BasePresenter
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.subjects.BehaviorSubject
 import io.reactivex.subjects.PublishSubject
 
 class SplashPresenter(
     private val nasaRepository: NasaRepository
 ) : BasePresenter<SplashView>() {
 
-    private val updateApodListSubject: PublishSubject<Unit> = PublishSubject.create()
+    private val updateApodListSubject: BehaviorSubject<Unit> = BehaviorSubject.create()
 
     private val updateApodListObservable: Observable<Resource<Void>> = updateApodListSubject
         .flatMap { nasaRepository.updateApodList() }
+        .replay(1).refCount()
 
     private val redirectToAppObservable: Observable<Unit> = updateApodListObservable
         .filter { it is Resource.Success }

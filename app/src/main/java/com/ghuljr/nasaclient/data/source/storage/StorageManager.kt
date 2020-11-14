@@ -8,15 +8,15 @@ import io.reactivex.Observable
 
 class StorageManager(private val apodBox: Box<ApodModel>) {
 
-    fun getApods(): Observable<List<ApodModel>> = RxQuery.observable(
+    fun getApodsSortedByDate(): Observable<List<ApodModel>> = RxQuery.observable(
         apodBox.query().sort { o1, o2 -> (o1.date.dateToTimestamp() - o2.date.dateToTimestamp()).toInt() }.build()
     )
 
-    fun getLatestApod(): Observable<ApodModel> = getApods()
+    fun getLatestApod(): Observable<ApodModel> = getApodsSortedByDate()
         .filter { it.isNotEmpty() }
         .map { it.first() }
 
-    fun insertApod(apod: ApodModel): Long = apodBox.put(apod)
+    fun insertApod(apod: ApodModel): Long = apodBox.put(apod) //TODO: handle adding the same item twice
 
     companion object {
         private const val TAG = "StorageManager"

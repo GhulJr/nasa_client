@@ -6,18 +6,14 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
-import androidx.fragment.app.viewModels
 import com.ghuljr.nasaclient.R
 import com.ghuljr.nasaclient.ui.base.mvp.BaseView
 import com.ghuljr.nasaclient.ui.base.mvp.MVPLifecycleObserver
 import com.ghuljr.nasaclient.ui.base.mvp.RetainedState
-import com.ghuljr.nasaclient.ui.main.FeedPresenter
-import com.ghuljr.nasaclient.ui.main.FeedView
+
 import com.ghuljr.nasaclient.ui.main.MainActivity
 import com.ghuljr.nasaclient.utils.getLifecycleObserver
-import io.reactivex.Observable
 import org.koin.android.ext.android.inject
-import java.util.concurrent.TimeUnit
 
 class SplashActivity : AppCompatActivity(), SplashView {
 
@@ -37,14 +33,16 @@ class SplashActivity : AppCompatActivity(), SplashView {
 
     override fun redirectToMainActivity() {
         startActivity(Intent(this, MainActivity::class.java))
+        finish()
     }
 
     override fun displayErrorDialog() {
-        AlertDialog.Builder(this)
+        AlertDialog.Builder(this, android.R.style.Theme_Dialog)
             .setTitle(R.string.network_error)
             .setMessage(R.string.network_error_message)
             .setNegativeButton(R.string.exit) { _, _ -> finish() }
-            .setPositiveButton(R.string.retry) { _, _ -> splashPresenter.updateApod() }
+            .setPositiveButton(R.string.retry_label) { _, _ -> splashPresenter.updateApod() }
+            .setCancelable(false)
             .show()
     }
 

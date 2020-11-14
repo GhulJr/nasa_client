@@ -4,7 +4,8 @@
     <color name="colorPrimaryDark">@color/black_900</color>
     <color name="colorAccent">@color/blue_nasa</color>
     <color name="colorBackground">@color/black_900</color>
-    <color name="textGray">@color/white_50_alpha_060</color>
+    <color name="colorTextGray">@color/white_50_alpha_060</color>
+    <color name="colorTextWhite">@color/white_50</color>
     <color name="colorLoadingIndicator">@color/white_50</color>
 
     <color name="gray_200">#f4f4f8</color>
