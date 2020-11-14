@@ -6,6 +6,7 @@ import com.ghuljr.nasaclient.data.source.Resource
 import com.ghuljr.nasaclient.data.source.remote.NasaService
 import com.ghuljr.nasaclient.data.source.storage.StorageManager
 import io.reactivex.Flowable
+import io.reactivex.Observable
 import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers
 
@@ -21,13 +22,12 @@ class NasaRepositoryImpl(
             Resource.create(it)
         }
 
-    override fun getApod(): Single<ApodModel> {
+    override fun getApod(): Observable<ApodModel> {
         return storageManager.getLatestApod()
     }
 
 
     companion object {
         private const val TAG = "NasaRepositoryImpl"
-        private const val dayTimestamp = 60*60*24
     }
 }

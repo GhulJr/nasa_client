@@ -18,11 +18,12 @@ class FeedPresenter(
     private val initApodSubject: BehaviorSubject<Unit> = BehaviorSubject.create()
 
     private val initApodObservable: Observable<ApodModel> = initApodSubject
-        .flatMap { nasaRepository.getApod().toObservable() }
+        .flatMap { nasaRepository.getApod() }
         .take(1)
         .observeOn(AndroidSchedulers.mainThread())
 
     private val refreshApodObservable: Observable<Resource<ApodModel>> = refreshApodSubject
+        .flatMap { initApodObservable.takeLast(1) }
         .switchMap { nasaRepository.fetchApod().toObservable().startWith(Resource.Loading()) }
         .repeat(1).share()
 
@@ -33,12 +34,12 @@ class FeedPresenter(
 
     private val refreshApodLoadingObservable: Observable<Boolean> = refreshApodObservable
         .map { it is Resource.Loading }
-        .observeOn(Schedulers.io())
+        .observeOn(AndroidSchedulers.mainThread())
 
     private val refreshApodErrorObservable: Observable<Unit> = refreshApodObservable
         .filter { it is Resource.Error }
         .map { Unit }
-        .observeOn(Schedulers.io())
+        .observeOn(AndroidSchedulers.mainThread())
 
 
     override fun onViewAttached() {
@@ -50,7 +51,6 @@ class FeedPresenter(
             refreshApodErrorObservable.subscribe { /* TODO: display snackbar */ },
             refreshApodLoadingObservable.subscribe { /*TODO: make skeleton loader*/ }
         ))
-
     }
 
     fun refreshApod(): Unit = refreshApodSubject.onNext(Unit)
@@ -59,6 +59,7 @@ class FeedPresenter(
 
     companion object {
         private const val TAG = "FeedPresenter"
+        private const val dayTimestamp = 60*60*24
     }
 }
 
