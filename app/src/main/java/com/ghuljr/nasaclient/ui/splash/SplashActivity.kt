@@ -18,12 +18,6 @@ import io.reactivex.Observable
 import org.koin.android.ext.android.inject
 import java.util.concurrent.TimeUnit
 
-interface SplashView : BaseView<SplashPresenter> {
-    fun redirectToMainActivity()
-    fun displayErrorDialog()
-}
-
-
 class SplashActivity : AppCompatActivity(), SplashView {
 
     private val splashPresenter: SplashPresenter by inject()
@@ -39,7 +33,7 @@ class SplashActivity : AppCompatActivity(), SplashView {
     }
 
     override fun redirectToMainActivity() {
-        TODO("Not yet implemented")
+        startActivity(Intent(this, MainActivity::class.java))
     }
 
     override fun displayErrorDialog() {
@@ -50,3 +44,9 @@ class SplashActivity : AppCompatActivity(), SplashView {
 
     override fun getState(): RetainedState = retainedState
 }
+
+interface SplashView : BaseView<SplashPresenter> {
+    fun redirectToMainActivity()
+    fun displayErrorDialog()
+}
+

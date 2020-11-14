@@ -11,6 +11,8 @@ import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.moshi.MoshiConverterFactory
 
+private const val API_KEY = "api_key"
+
 val networkModule = module {
     single { provideCache(get()) }
     factory { provideOkHttp(get()) }
@@ -50,5 +52,3 @@ private fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit = Retrofit.Bui
     .build()
 
 private fun provideNasaService(retrofit: Retrofit) = retrofit.create(NasaService::class.java)
-
-private const val API_KEY = "api_key"
