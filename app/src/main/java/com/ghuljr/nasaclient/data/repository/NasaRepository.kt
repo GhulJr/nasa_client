@@ -8,5 +8,6 @@ import io.reactivex.Single
 
 interface NasaRepository {
     fun fetchApod(): Single<Resource<ApodModel>>
-    fun getApod(): Observable<ApodModel>
+    fun getLatestApod(): Observable<ApodModel>
+    fun updateApodList(): Observable<Resource<Void>>
 }

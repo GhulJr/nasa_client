@@ -4,25 +4,49 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.activity.viewModels
+import androidx.fragment.app.viewModels
 import com.ghuljr.nasaclient.R
+import com.ghuljr.nasaclient.ui.base.mvp.BaseView
+import com.ghuljr.nasaclient.ui.base.mvp.MVPLifecycleObserver
+import com.ghuljr.nasaclient.ui.base.mvp.RetainedState
+import com.ghuljr.nasaclient.ui.main.FeedPresenter
+import com.ghuljr.nasaclient.ui.main.FeedView
 import com.ghuljr.nasaclient.ui.main.MainActivity
+import com.ghuljr.nasaclient.utils.getLifecycleObserver
 import io.reactivex.Observable
+import org.koin.android.ext.android.inject
 import java.util.concurrent.TimeUnit
 
-class SplashActivity : AppCompatActivity() {
+interface SplashView : BaseView<SplashPresenter> {
+    fun redirectToMainActivity()
+    fun displayErrorDialog()
+}
+
+
+class SplashActivity : AppCompatActivity(), SplashView {
+
+    private val splashPresenter: SplashPresenter by inject()
+    private val retainedState: RetainedState by viewModels()
+    private val lifecycleObserver: MVPLifecycleObserver<SplashView, SplashPresenter> by lazy { getLifecycleObserver() }
+
     @SuppressLint("CheckResult")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
 
-        Observable.just(Intent(this, MainActivity::class.java))
-            .delay(1L, TimeUnit.SECONDS)
-            .subscribe {
-                startActivity(it)
-                finish()
-            }
-
-        //TODO: fetch apod data
-        //TODO: When you scroll top bar is dissapearing and fab is appearing
+        this.lifecycle.addObserver(lifecycleObserver)
     }
+
+    override fun redirectToMainActivity() {
+        TODO("Not yet implemented")
+    }
+
+    override fun displayErrorDialog() {
+        TODO("Not yet implemented")
+    }
+
+    override fun getPresenter(): SplashPresenter = splashPresenter
+
+    override fun getState(): RetainedState = retainedState
 }

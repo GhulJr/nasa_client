@@ -7,7 +7,6 @@ import com.ghuljr.nasaclient.ui.base.mvp.BasePresenter
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.BehaviorSubject
 
 class FeedPresenter(
@@ -18,7 +17,7 @@ class FeedPresenter(
     private val initApodSubject: BehaviorSubject<Unit> = BehaviorSubject.create()
 
     private val initApodObservable: Observable<ApodModel> = initApodSubject
-        .flatMap { nasaRepository.getApod() }
+        .flatMap { nasaRepository.getLatestApod() }
         .take(1)
         .observeOn(AndroidSchedulers.mainThread())
 
@@ -59,7 +58,6 @@ class FeedPresenter(
 
     companion object {
         private const val TAG = "FeedPresenter"
-        private const val dayTimestamp = 60*60*24
     }
 }
 
