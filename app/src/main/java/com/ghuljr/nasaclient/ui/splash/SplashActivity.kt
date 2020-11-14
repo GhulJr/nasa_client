@@ -5,6 +5,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.viewModels
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.viewModels
 import com.ghuljr.nasaclient.R
 import com.ghuljr.nasaclient.ui.base.mvp.BaseView
@@ -30,6 +31,8 @@ class SplashActivity : AppCompatActivity(), SplashView {
         setContentView(R.layout.activity_splash)
 
         this.lifecycle.addObserver(lifecycleObserver)
+
+        splashPresenter.updateApod()
     }
 
     override fun redirectToMainActivity() {
@@ -37,7 +40,12 @@ class SplashActivity : AppCompatActivity(), SplashView {
     }
 
     override fun displayErrorDialog() {
-        TODO("Not yet implemented")
+        AlertDialog.Builder(this)
+            .setTitle(R.string.network_error)
+            .setMessage(R.string.network_error_message)
+            .setNegativeButton(R.string.exit) { _, _ -> finish() }
+            .setPositiveButton(R.string.retry) { _, _ -> splashPresenter.updateApod() }
+            .show()
     }
 
     override fun getPresenter(): SplashPresenter = splashPresenter
