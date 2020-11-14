@@ -18,6 +18,12 @@ import kotlinx.android.synthetic.main.component_apod_header.view.*
 import kotlinx.android.synthetic.main.fragment_feed.*
 import org.koin.android.ext.android.inject
 
+interface FeedView : BaseView<FeedPresenter> {
+    fun diplayApod(apod: ApodModel)
+    fun displayApodError()
+    fun displayLoading(isLoading: Boolean)
+}
+
 class FeedFragment : Fragment(), FeedView {
 
     private val feedPresenter: FeedPresenter by inject()
@@ -61,10 +67,4 @@ class FeedFragment : Fragment(), FeedView {
         @JvmStatic
         fun newInstance() = FeedFragment()
     }
-}
-
-interface FeedView : BaseView<FeedPresenter> {
-    fun diplayApod(apod: ApodModel)
-    fun displayApodError()
-    fun displayLoading(isLoading: Boolean)
 }

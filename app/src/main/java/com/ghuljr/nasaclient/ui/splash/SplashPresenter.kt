@@ -16,7 +16,7 @@ class SplashPresenter(
     private val updateApodListSubject: BehaviorSubject<Unit> = BehaviorSubject.create()
 
     private val updateApodListObservable: Observable<Resource<Void>> = updateApodListSubject
-        .flatMap { nasaRepository.updateApodList() }
+        .flatMap { nasaRepository.updateApodList().startWith(Resource.Loading()) }
         .replay(1).refCount()
 
     private val redirectToAppObservable: Observable<Unit> = updateApodListObservable
@@ -29,11 +29,16 @@ class SplashPresenter(
         .map { Unit }
         .observeOn(AndroidSchedulers.mainThread())
 
+    private val isDataLoadingObservable: Observable<Boolean> = updateApodListObservable
+        .map { it is Resource.Loading }
+        .observeOn(AndroidSchedulers.mainThread())
+
     override fun onViewAttached() {
         super.onViewAttached()
         disposable.set(CompositeDisposable(
             redirectToAppObservable.subscribe { view?.redirectToMainActivity() },
-            showApodErrorObservable.subscribe { view?.displayErrorDialog() }
+            showApodErrorObservable.subscribe { view?.displayErrorDialog() },
+            isDataLoadingObservable.subscribe { view?.displayLoadingView(it) }
         ))
     }
 

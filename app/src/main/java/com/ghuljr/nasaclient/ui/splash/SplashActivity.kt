@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
+import androidx.core.view.isVisible
 import com.ghuljr.nasaclient.R
 import com.ghuljr.nasaclient.ui.base.mvp.BaseView
 import com.ghuljr.nasaclient.ui.base.mvp.MVPLifecycleObserver
@@ -13,7 +14,14 @@ import com.ghuljr.nasaclient.ui.base.mvp.RetainedState
 
 import com.ghuljr.nasaclient.ui.main.MainActivity
 import com.ghuljr.nasaclient.utils.getLifecycleObserver
+import kotlinx.android.synthetic.main.activity_splash.*
 import org.koin.android.ext.android.inject
+
+interface SplashView : BaseView<SplashPresenter> {
+    fun redirectToMainActivity()
+    fun displayErrorDialog()
+    fun displayLoadingView(isLoading: Boolean)
+}
 
 class SplashActivity : AppCompatActivity(), SplashView {
 
@@ -46,13 +54,11 @@ class SplashActivity : AppCompatActivity(), SplashView {
             .show()
     }
 
+    override fun displayLoadingView(isLoading: Boolean) {
+        activity_splash_loading_indicator.isVisible = isLoading
+    }
+
     override fun getPresenter(): SplashPresenter = splashPresenter
 
     override fun getState(): RetainedState = retainedState
 }
-
-interface SplashView : BaseView<SplashPresenter> {
-    fun redirectToMainActivity()
-    fun displayErrorDialog()
-}
-
