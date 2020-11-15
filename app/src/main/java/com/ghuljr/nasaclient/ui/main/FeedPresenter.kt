@@ -11,12 +11,19 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.BehaviorSubject
+import io.reactivex.subjects.PublishSubject
 
 class FeedPresenter(
     private val nasaRepository: NasaRepository
 ) : BasePresenter<FeedView>() {
 
     private val refreshApodSubject: BehaviorSubject<Unit> = BehaviorSubject.create()
+    private val openApodDetailsSubject: PublishSubject<Unit> = PublishSubject.create()
+
+    private val displayApodObservable: Observable<ApodModel> = nasaRepository.getLatestApod()
+        .subscribeOn(Schedulers.io())
+        .replay(1).refCount()
+        .observeOn(AndroidSchedulers.mainThread())
 
     private val apodArchiveObservable: Observable<List<ApodModel>> = nasaRepository.getApodList()
         .subscribeOn(Schedulers.io())
@@ -31,21 +38,10 @@ class FeedPresenter(
         .filter { it.isNotEmpty() }
         .observeOn(AndroidSchedulers.mainThread())
 
-    private val initApodObservable: Observable<ApodModel> = nasaRepository.getLatestApod()
-        .subscribeOn(Schedulers.io())
-        .doOnNext { refreshApodSubject.onNext(Unit) }
-        .take(1)
-        .observeOn(AndroidSchedulers.mainThread())
-
     private val refreshApodObservable: Observable<Resource<ApodModel>> = refreshApodSubject
         .subscribeOn(Schedulers.io())
         .switchMap { nasaRepository.updateApod().startWith(Resource.Loading()) }
         .replay(1).refCount()
-
-    private val refreshApodSuccessObservable: Observable<ApodModel> = refreshApodObservable
-        .filter { it is Resource.Success && it.data != null }
-        .map { it.data!! }
-        .observeOn(AndroidSchedulers.mainThread())
 
     private val refreshApodLoadingObservable: Observable<Boolean> = refreshApodObservable
         .map { it is Resource.Loading }
@@ -56,20 +52,25 @@ class FeedPresenter(
         .map { it.error ?: NetworkError.ResponseError }
         .observeOn(AndroidSchedulers.mainThread())
 
+    private val openApodDetailsObservable: Observable<ApodModel> = openApodDetailsSubject
+        .switchMap { displayApodObservable }
+
     override fun onViewAttached() {
         super.onViewAttached()
 
         disposable.set(CompositeDisposable(
-            initApodObservable.subscribe { view?.diplayApod(it) },
-            refreshApodSuccessObservable.subscribe { view?.diplayApod(it) },
+            displayApodObservable.subscribe { view?.diplayApod(it) },
             refreshApodErrorObservable.subscribe { view?.displayApodError(it) },
             isApodArchiveVisibleObservable.subscribe { view?.setApodArchiveVisibility(it) },
             setApodArchiveObservable.subscribe { view?.setApodArchiveList(it) },
-            refreshApodLoadingObservable.subscribe { /*TODO: make skeleton loader*/ }
-        ))
+            refreshApodLoadingObservable.subscribe { /*TODO: make skeleton loader*/ },
+            openApodDetailsObservable.subscribe { view?.openApodDetails(it) }
+        ),
+        )
     }
 
     fun refreshApod(): Unit = refreshApodSubject.onNext(Unit)
+    fun openApodDetails(): Unit = openApodDetailsSubject.onNext(Unit)
 
     companion object {
         private const val TAG = "FeedPresenter"

@@ -4,7 +4,6 @@ import android.view.View
 import androidx.annotation.StringRes
 import com.ghuljr.nasaclient.ui.base.mvp.BasePresenter
 import com.ghuljr.nasaclient.ui.base.mvp.BaseView
-import com.ghuljr.nasaclient.ui.common.ResourceError
 import com.google.android.material.snackbar.Snackbar
 
 fun <VIEW : BaseView<PRESENTER>, PRESENTER : BasePresenter<VIEW>> VIEW.makeSnackbar(

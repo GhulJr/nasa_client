@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import com.ghuljr.nasaclient.R
 import com.ghuljr.nasaclient.data.model.ApodModel
@@ -21,9 +22,13 @@ import com.ghuljr.nasaclient.ui.common.ResourceError
 import com.ghuljr.nasaclient.utils.getLifecycleObserver
 import com.ghuljr.nasaclient.utils.loadImage
 import com.ghuljr.nasaclient.utils.makeSnackbar
+import com.ghuljr.nasaclient.utils.reactiveClick
+import com.jakewharton.rxbinding4.view.clicks
+import io.reactivex.disposables.CompositeDisposable
 import kotlinx.android.synthetic.main.component_apod_header.view.*
 import kotlinx.android.synthetic.main.fragment_feed.*
 import org.koin.android.ext.android.inject
+import java.util.concurrent.TimeUnit
 
 interface FeedView : BaseView<FeedPresenter> {
     fun diplayApod(apod: ApodModel)
@@ -31,6 +36,7 @@ interface FeedView : BaseView<FeedPresenter> {
     fun displayLoading(isLoading: Boolean)
     fun setApodArchiveList(apods: List<ApodModel>)
     fun setApodArchiveVisibility(isVisible: Boolean)
+    fun openApodDetails(apod: ApodModel)
 }
 
 class FeedFragment : Fragment(), FeedView {
@@ -56,7 +62,11 @@ class FeedFragment : Fragment(), FeedView {
                 .apply { setDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.divider_horizontal_list)!!) }
         )
 
+        apodHeader.reactiveClick()
+            .subscribe { feedPresenter.openApodDetails() }
+
         viewLifecycleOwner.lifecycle.addObserver(lifecycleObserver)
+        feedPresenter.refreshApod()
     }
 
     override fun diplayApod(apod: ApodModel) {
@@ -88,6 +98,9 @@ class FeedFragment : Fragment(), FeedView {
         apod_archive.isVisible = isVisible
     }
 
+    override fun openApodDetails(apod: ApodModel) {
+        findNavController().navigate(FeedFragmentDirections.actionFeedFragmentToApodDetailsFragment(apod.id))
+    }
 
     override fun getPresenter(): FeedPresenter = feedPresenter
     override fun getState(): RetainedState = retainedState
