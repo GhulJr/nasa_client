@@ -11,16 +11,18 @@ import com.ghuljr.nasaclient.data.model.ApodModel
 import com.ghuljr.nasaclient.ui.base.mvp.BaseView
 import com.ghuljr.nasaclient.ui.base.mvp.MVPLifecycleObserver
 import com.ghuljr.nasaclient.ui.base.mvp.RetainedState
+import com.ghuljr.nasaclient.ui.common.NetworkError
+import com.ghuljr.nasaclient.ui.common.ResourceError
 import com.ghuljr.nasaclient.utils.getLifecycleObserver
 import com.ghuljr.nasaclient.utils.loadImage
-import com.google.android.material.snackbar.Snackbar
+import com.ghuljr.nasaclient.utils.makeSnackbar
 import kotlinx.android.synthetic.main.component_apod_header.view.*
 import kotlinx.android.synthetic.main.fragment_feed.*
 import org.koin.android.ext.android.inject
 
 interface FeedView : BaseView<FeedPresenter> {
     fun diplayApod(apod: ApodModel)
-    fun displayApodError()
+    fun displayApodError(error: ResourceError)
     fun displayLoading(isLoading: Boolean)
 }
 
@@ -51,9 +53,13 @@ class FeedFragment : Fragment(), FeedView {
         }
     }
 
-    override fun displayApodError() {
-        Snackbar.make(apodRoot, R.string.error_internet_connection, Snackbar.LENGTH_INDEFINITE)
-            .setAction(R.string.retry) { feedPresenter.refreshApod() }
+    override fun displayApodError(error: ResourceError) {
+        when(error) {
+            is NetworkError.UpToDateError -> makeSnackbar(apodRoot, R.string.error_up_to_date, R.string.ok)
+            else -> makeSnackbar(apodRoot, R.string.error_internet_connection, R.string.retry_label) {
+                feedPresenter.refreshApod()
+            }
+        }
     }
 
     override fun displayLoading(isLoading: Boolean) {
