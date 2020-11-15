@@ -1,10 +1,13 @@
 package com.ghuljr.nasaclient.ui.main
 
+import android.content.Context
+import android.content.res.Resources
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -48,7 +51,10 @@ class FeedFragment : Fragment(), FeedView {
         super.onViewCreated(view, savedInstanceState)
 
         apod_recyclerview.adapter = apodAdapter
-        apod_recyclerview.addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.HORIZONTAL))
+        apod_recyclerview.addItemDecoration(
+            DividerItemDecoration(context, DividerItemDecoration.HORIZONTAL)
+                .apply { setDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.divider_horizontal_list)!!) }
+        )
 
         viewLifecycleOwner.lifecycle.addObserver(lifecycleObserver)
     }

@@ -32,7 +32,7 @@ class ApodAdapter : RecyclerView.Adapter<ApodAdapter.ViewHolder>() {
         fun bind(apod: ApodModel): Unit = with(itemView) {
             apod_thumbnail.loadImage(apod.url)
             apod_date.text = apod.date
-            apod_title.text = apod.date
+            apod_title.text = apod.title
         }
     }
 }
