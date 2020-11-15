@@ -24,11 +24,13 @@ interface FeedView : BaseView<FeedPresenter> {
     fun diplayApod(apod: ApodModel)
     fun displayApodError(error: ResourceError)
     fun displayLoading(isLoading: Boolean)
+    fun displayApodArchive(apods: List<ApodModel>)
 }
 
 class FeedFragment : Fragment(), FeedView {
 
     private val feedPresenter: FeedPresenter by inject()
+    private val apodAdapter: ApodAdapter by inject()
     private val retainedState: RetainedState by viewModels()
     private val lifecycleObserver: MVPLifecycleObserver<FeedView, FeedPresenter> by lazy { getLifecycleObserver() }
 
@@ -63,6 +65,10 @@ class FeedFragment : Fragment(), FeedView {
     }
 
     override fun displayLoading(isLoading: Boolean) {
+        TODO("Not yet implemented")
+    }
+
+    override fun displayApodArchive(apods: List<ApodModel>) {
         TODO("Not yet implemented")
     }
 

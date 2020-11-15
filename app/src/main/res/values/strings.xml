@@ -13,5 +13,6 @@
 
     <!--APoD-->
     <string name="apod_label">APoD</string>
+    <string name="archive">Archive</string>
 
 </resources>

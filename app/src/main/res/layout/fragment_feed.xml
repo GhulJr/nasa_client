@@ -34,18 +34,32 @@
                 android:layout_marginTop="@dimen/appMargin"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/savedMTV"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@color/white_50"
-                android:textSize="32sp"
-                android:textStyle="bold"
-                android:text="Archive"
-                android:layout_marginTop="@dimen/appMargin"
-                android:layout_marginBottom="@dimen/appMargin"
                 app:layout_constraintTop_toBottomOf="@id/apodHeader"
-                app:layout_constraintStart_toStartOf="parent"/>
+                app:layout_constraintStart_toStartOf="parent"
+                android:orientation="vertical">
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/savedMTV"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/white_50"
+                    android:textSize="32sp"
+                    android:textStyle="bold"
+                    android:text="@string/archive"
+                    android:layout_marginTop="@dimen/appMargin"
+                    android:layout_marginBottom="@dimen/appMargin" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/apod_recyclerview"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    tools:listitem="@layout/item_apod"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
+
+            </LinearLayout>
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/tagsMTV"

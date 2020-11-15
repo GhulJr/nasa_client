@@ -1,10 +1,7 @@
 package com.ghuljr.nasaclient
 
 import android.app.Application
-import com.ghuljr.nasaclient.di.networkModule
-import com.ghuljr.nasaclient.di.presenterModule
-import com.ghuljr.nasaclient.di.repositoryModule
-import com.ghuljr.nasaclient.di.storageModule
+import com.ghuljr.nasaclient.di.*
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
@@ -23,7 +20,8 @@ class App : Application() {
                     networkModule,
                     storageModule,
                     presenterModule,
-                    repositoryModule
+                    repositoryModule,
+                    adapterModule
                 )
             )
         }
