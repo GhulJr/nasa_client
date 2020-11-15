@@ -20,7 +20,7 @@ class FeedPresenter(
 
     private val apodArchiveObservable: Observable<List<ApodModel>> = nasaRepository.getApodList()
         .subscribeOn(Schedulers.io())
-        .map { if (it.isNotEmpty()) listOf<ApodModel>(*it.toTypedArray(), *it.toTypedArray(), *it.toTypedArray() ,*it.toTypedArray()) else it } //TODO: temporary
+        .map { if (it.isNotEmpty()) it.drop(1) else it }
         .replay(1).refCount()
 
     private val isApodArchiveVisibleObservable: Observable<Boolean> = apodArchiveObservable

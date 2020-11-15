@@ -9,5 +9,18 @@
         android:id="@+id/feedFragment"
         android:name="com.ghuljr.nasaclient.ui.main.FeedFragment"
         android:label="fragment_feed"
-        tools:layout="@layout/fragment_feed" />
+        tools:layout="@layout/fragment_feed" >
+        <action
+            android:id="@+id/action_feedFragment_to_apodDetailsFragment"
+            app:destination="@id/apodDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/apodDetailsFragment"
+        android:name="com.ghuljr.nasaclient.ui.apod.ApodDetailsFragment"
+        android:label="fragment_apod_details"
+        tools:layout="@layout/fragment_apod_details" >
+        <argument
+            android:name="apodId"
+            app:argType="long" />
+    </fragment>
 </navigation>
