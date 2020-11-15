@@ -12,6 +12,10 @@ import kotlinx.android.synthetic.main.item_apod.view.*
 class ApodAdapter : RecyclerView.Adapter<ApodAdapter.ViewHolder>() {
 
     var apods: List<ApodModel> = listOf()
+        set(value) {
+            field = value
+            notifyDataSetChanged()
+        }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(

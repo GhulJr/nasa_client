@@ -5,7 +5,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.DividerItemDecoration
 import com.ghuljr.nasaclient.R
 import com.ghuljr.nasaclient.data.model.ApodModel
 import com.ghuljr.nasaclient.ui.base.mvp.BaseView
@@ -24,7 +26,8 @@ interface FeedView : BaseView<FeedPresenter> {
     fun diplayApod(apod: ApodModel)
     fun displayApodError(error: ResourceError)
     fun displayLoading(isLoading: Boolean)
-    fun displayApodArchive(apods: List<ApodModel>)
+    fun setApodArchiveList(apods: List<ApodModel>)
+    fun displayApodArchive(isEmty: Boolean)
 }
 
 class FeedFragment : Fragment(), FeedView {
@@ -43,7 +46,12 @@ class FeedFragment : Fragment(), FeedView {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        apod_recyclerview.adapter = apodAdapter
+        apod_recyclerview.addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.HORIZONTAL))
+
         viewLifecycleOwner.lifecycle.addObserver(lifecycleObserver)
+
         feedPresenter.initApod()
     }
 
@@ -68,9 +76,14 @@ class FeedFragment : Fragment(), FeedView {
         TODO("Not yet implemented")
     }
 
-    override fun displayApodArchive(apods: List<ApodModel>) {
-        TODO("Not yet implemented")
+    override fun setApodArchiveList(apods: List<ApodModel>) {
+        apodAdapter.apods = apods
     }
+
+    override fun displayApodArchive(isVisible: Boolean) {
+        apod_archive.isVisible = isVisible
+    }
+
 
     override fun getPresenter(): FeedPresenter = feedPresenter
     override fun getState(): RetainedState = retainedState
