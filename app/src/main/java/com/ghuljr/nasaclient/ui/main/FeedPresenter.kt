@@ -17,11 +17,22 @@ class FeedPresenter(
 ) : BasePresenter<FeedView>() {
 
     private val refreshApodSubject: BehaviorSubject<Unit> = BehaviorSubject.create()
-    private val initApodSubject: BehaviorSubject<Unit> = BehaviorSubject.create()
 
-    private val initApodObservable: Observable<ApodModel> = initApodSubject
+    private val apodArchiveObservable: Observable<List<ApodModel>> = nasaRepository.getApodList()
         .subscribeOn(Schedulers.io())
-        .flatMap { nasaRepository.getLatestApod() }
+        .map { if (it.isNotEmpty()) it.drop(1) else it }
+        .replay(1).refCount()
+
+    private val isApodArchiveVisibleObservable: Observable<Boolean> = apodArchiveObservable
+        .map { it.isNotEmpty() }
+        .observeOn(AndroidSchedulers.mainThread())
+
+    private val setApodArchiveObservable: Observable<List<ApodModel>> = apodArchiveObservable
+        .filter { it.isNotEmpty() }
+        .observeOn(AndroidSchedulers.mainThread())
+
+    private val initApodObservable: Observable<ApodModel> = nasaRepository.getLatestApod()
+        .subscribeOn(Schedulers.io())
         .doOnNext { refreshApodSubject.onNext(Unit) }
         .take(1)
         .observeOn(AndroidSchedulers.mainThread())
@@ -52,13 +63,13 @@ class FeedPresenter(
             initApodObservable.subscribe { view?.diplayApod(it) },
             refreshApodSuccessObservable.subscribe { view?.diplayApod(it) },
             refreshApodErrorObservable.subscribe { view?.displayApodError(it) },
+            isApodArchiveVisibleObservable.subscribe { view?.setApodArchiveVisibility(it) },
+            setApodArchiveObservable.subscribe { view?.setApodArchiveList(it) },
             refreshApodLoadingObservable.subscribe { /*TODO: make skeleton loader*/ }
         ))
     }
 
     fun refreshApod(): Unit = refreshApodSubject.onNext(Unit)
-    fun initApod(): Unit = initApodSubject.onNext(Unit)
-
 
     companion object {
         private const val TAG = "FeedPresenter"

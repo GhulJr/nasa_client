@@ -27,7 +27,7 @@ interface FeedView : BaseView<FeedPresenter> {
     fun displayApodError(error: ResourceError)
     fun displayLoading(isLoading: Boolean)
     fun setApodArchiveList(apods: List<ApodModel>)
-    fun displayApodArchive(isEmty: Boolean)
+    fun setApodArchiveVisibility(isVisible: Boolean)
 }
 
 class FeedFragment : Fragment(), FeedView {
@@ -51,8 +51,6 @@ class FeedFragment : Fragment(), FeedView {
         apod_recyclerview.addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.HORIZONTAL))
 
         viewLifecycleOwner.lifecycle.addObserver(lifecycleObserver)
-
-        feedPresenter.initApod()
     }
 
     override fun diplayApod(apod: ApodModel) {
@@ -80,7 +78,7 @@ class FeedFragment : Fragment(), FeedView {
         apodAdapter.apods = apods
     }
 
-    override fun displayApodArchive(isVisible: Boolean) {
+    override fun setApodArchiveVisibility(isVisible: Boolean) {
         apod_archive.isVisible = isVisible
     }
 
