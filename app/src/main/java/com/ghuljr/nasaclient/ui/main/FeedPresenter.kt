@@ -7,7 +7,6 @@ import com.ghuljr.nasaclient.ui.base.mvp.BasePresenter
 import com.ghuljr.nasaclient.ui.common.NetworkError
 import com.ghuljr.nasaclient.ui.common.ResourceError
 import io.reactivex.Observable
-import io.reactivex.Scheduler
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers

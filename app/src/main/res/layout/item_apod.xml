@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    app:cardCornerRadius="@dimen/appCornerRadius"
+    app:cardBackgroundColor="@android:color/transparent">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="150dp"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/apod_thumbnail"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/apodItemSize"
+            android:scaleType="centerCrop"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@drawable/apod_sample2" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/apod_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:layout_marginBottom="4dp"
+            app:layout_constraintBottom_toBottomOf="@id/apod_thumbnail"
+            app:layout_constraintStart_toStartOf="@id/apod_thumbnail"
+            tools:text="2020-11-10"/>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/apod_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/appMarginSmall"
+            app:layout_constraintTop_toBottomOf="@id/apod_thumbnail"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:maxLines="2"
+            tools:text="Nebula habulaasdasdasdasdasdasdasdasd"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</com.google.android.material.card.MaterialCardView>
