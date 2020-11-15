@@ -1,13 +1,14 @@
 package com.ghuljr.nasaclient.ui.splash
 
+import com.ghuljr.nasaclient.data.model.ApodModel
 import com.ghuljr.nasaclient.data.repository.NasaRepository
 import com.ghuljr.nasaclient.data.source.Resource
 import com.ghuljr.nasaclient.ui.base.mvp.BasePresenter
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.BehaviorSubject
-import io.reactivex.subjects.PublishSubject
 
 class SplashPresenter(
     private val nasaRepository: NasaRepository
@@ -15,17 +16,24 @@ class SplashPresenter(
 
     private val updateApodListSubject: BehaviorSubject<Unit> = BehaviorSubject.create()
 
-    private val updateApodListObservable: Observable<Resource<Void>> = updateApodListSubject
-        .flatMap { nasaRepository.updateApodList().startWith(Resource.Loading()) }
+    private val isDataCachedObservable: Observable<Boolean> = updateApodListSubject
+        .subscribeOn(Schedulers.io())
+        .flatMap { nasaRepository.getApodList() }
+        .map { it.isNotEmpty() }
+
+    private val updateApodListObservable: Observable<Resource<ApodModel>> = isDataCachedObservable
+        .filter { !it }
+        .flatMap { nasaRepository.fetchApod().toObservable().startWith(Resource.Loading()) }
+        .doOnNext { nasaRepository.i}
         .replay(1).refCount()
 
-    private val redirectToAppObservable: Observable<Unit> = updateApodListObservable
-        .filter { it is Resource.Success }
+    private val redirectToAppObservable: Observable<Unit> = isDataCachedObservable
+        .filter { it }
         .map { Unit }
         .observeOn(AndroidSchedulers.mainThread())
 
-    private val showApodErrorObservable: Observable<Unit> = updateApodListObservable
-        .filter { it is Resource.Error }
+    private val showApodErrorObservable: Observable<Unit> = isDataCachedObservable
+        .filter { !it }
         .map { Unit }
         .observeOn(AndroidSchedulers.mainThread())
 

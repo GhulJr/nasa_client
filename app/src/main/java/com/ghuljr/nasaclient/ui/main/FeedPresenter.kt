@@ -29,6 +29,7 @@ class FeedPresenter(
     private val refreshApodSuccessObservable: Observable<ApodModel> = refreshApodObservable
         .filter { it is Resource.Success && it.data != null }
         .map { it.data!! }
+        .doOnNext {  }
         .observeOn(AndroidSchedulers.mainThread())
 
     private val refreshApodLoadingObservable: Observable<Boolean> = refreshApodObservable

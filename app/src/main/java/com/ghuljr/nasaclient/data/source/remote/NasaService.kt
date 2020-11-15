@@ -8,5 +8,5 @@ import retrofit2.http.GET
 interface NasaService {
 
     @GET("/planetary/apod")
-    fun fetchApod(): Single<Response<ApodModel>>
+    fun fetchApod(): Single<ApodModel>
 }

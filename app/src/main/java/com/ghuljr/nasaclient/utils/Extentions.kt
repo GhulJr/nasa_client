@@ -1,9 +1,13 @@
 package com.ghuljr.nasaclient.utils
 
-import com.ghuljr.nasaclient.data.source.Resource
+import android.view.View
+import com.ghuljr.nasaclient.ui.base.mvp.BasePresenter
+import com.ghuljr.nasaclient.ui.base.mvp.BaseView
+import com.google.android.material.snackbar.Snackbar
 
-fun<T> Resource<T>.toVoid() : Resource<Void> = when(this) {
-    is Resource.Success -> Resource.Success(null)
-    is Resource.Loading -> Resource.Loading()
-    is Resource.Error -> Resource.Error("")
-}
+/*
+fun <VIEW : BaseView<PRESENTER>, PRESENTER : BasePresenter<VIEW>> VIEW.makeSnackbar(view: View, error: ApodError, onButtonClicked: () -> Unit) {
+    Snackbar.make(view, error.messageRes, Snackbar.LENGTH_INDEFINITE)
+        .setAction(error.buttonRes) { onButtonClicked() }
+        .show()
+}*/

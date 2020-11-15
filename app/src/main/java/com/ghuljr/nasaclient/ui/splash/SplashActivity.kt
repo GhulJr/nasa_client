@@ -46,8 +46,8 @@ class SplashActivity : AppCompatActivity(), SplashView {
 
     override fun displayErrorDialog() {
         AlertDialog.Builder(this, android.R.style.Theme_Dialog)
-            .setTitle(R.string.network_error)
-            .setMessage(R.string.network_error_message)
+            .setTitle(R.string.error_network)
+            .setMessage(R.string.error_internet_connection)
             .setNegativeButton(R.string.exit) { _, _ -> finish() }
             .setPositiveButton(R.string.retry_label) { _, _ -> splashPresenter.updateApod() }
             .setCancelable(false)

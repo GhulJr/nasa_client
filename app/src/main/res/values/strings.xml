@@ -1,13 +1,17 @@
 <resources>
+    <!-- General -->
     <string name="app_name">NasaClient</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="search">Search</string>
-    <string name="apod_label">APoD</string>
-    <string name="apod_fetch_error">Unable to fetch latest APoD.</string>
-    <string name="apod_up_to_date">APoD is up to date.</string>
     <string name="retry_label">Retry</string>
-    <string name="network_error">Network error</string>
-    <string name="network_error_message">We are unable to fetch any data. Establish your connection or try later.</string>
     <string name="exit">Exit</string>
+
+    <!-- Error -->
+    <string name="error_network">Network error</string>
+    <string name="error_up_to_date">Everything is up to date.</string>
+    <string name="error_internet_connection">No internet connection.</string>
+    <string name="error_response">Unable to connect with server.</string>
+
+    <!--APoD-->
+    <string name="apod_label">APoD</string>
+
 </resources>

@@ -52,7 +52,7 @@ class FeedFragment : Fragment(), FeedView {
     }
 
     override fun displayApodError() {
-        Snackbar.make(apodRoot, R.string.apod_fetch_error, Snackbar.LENGTH_INDEFINITE)
+        Snackbar.make(apodRoot, R.string.error_internet_connection, Snackbar.LENGTH_INDEFINITE)
             .setAction(R.string.retry) { feedPresenter.refreshApod() }
     }
 
