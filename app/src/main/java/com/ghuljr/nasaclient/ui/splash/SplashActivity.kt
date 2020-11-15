@@ -45,7 +45,7 @@ class SplashActivity : AppCompatActivity(), SplashView {
     }
 
     override fun displayErrorDialog() {
-        AlertDialog.Builder(this, android.R.style.Theme_Dialog)
+        AlertDialog.Builder(this, android.R.style.Theme_Material_Dialog)
             .setTitle(R.string.error_network)
             .setMessage(R.string.error_internet_connection)
             .setNegativeButton(R.string.exit) { _, _ -> finish() }

@@ -16,23 +16,30 @@ class SplashPresenter(
 
     private val updateApodListSubject: BehaviorSubject<Unit> = BehaviorSubject.create()
 
-    private val isDataCachedObservable: Observable<Boolean> = updateApodListSubject
-        .subscribeOn(Schedulers.io())
-        .flatMap { nasaRepository.getApodList() }
+    private val isApodCachedObservable: Observable<Boolean> = nasaRepository
+        .getApodList()
         .map { it.isNotEmpty() }
 
-    private val updateApodListObservable: Observable<Resource<ApodModel>> = isDataCachedObservable
-        .filter { !it }
-        .flatMap { nasaRepository.fetchApod().toObservable().startWith(Resource.Loading()) }
-        .doOnNext { nasaRepository.i}
+    private val updateApodListObservable: Observable<Resource<ApodModel>> = updateApodListSubject
+        .flatMap { nasaRepository.updateApod().startWith(Resource.Loading()) }
         .replay(1).refCount()
 
-    private val redirectToAppObservable: Observable<Unit> = isDataCachedObservable
+    private val shouldLaunchAppObservable: Observable<Boolean> = updateApodListObservable
+        .filter { it is Resource.Error }
+        .flatMap { isApodCachedObservable }
+        .replay(1).refCount()
+
+    private val redirectToAppObservable: Observable<Unit> = updateApodListObservable
+        .filter { it is Resource.Success }
+        .map { Unit }
+        .observeOn(AndroidSchedulers.mainThread())
+
+    private val redirectToAppWithErrorObservable: Observable<Unit> = shouldLaunchAppObservable
         .filter { it }
         .map { Unit }
         .observeOn(AndroidSchedulers.mainThread())
 
-    private val showApodErrorObservable: Observable<Unit> = isDataCachedObservable
+    private val showApodErrorObservable: Observable<Unit> = shouldLaunchAppObservable
         .filter { !it }
         .map { Unit }
         .observeOn(AndroidSchedulers.mainThread())
@@ -45,6 +52,7 @@ class SplashPresenter(
         super.onViewAttached()
         disposable.set(CompositeDisposable(
             redirectToAppObservable.subscribe { view?.redirectToMainActivity() },
+            redirectToAppWithErrorObservable.subscribe { view?.redirectToMainActivity() },
             showApodErrorObservable.subscribe { view?.displayErrorDialog() },
             isDataLoadingObservable.subscribe { view?.displayLoadingView(it) }
         ))
