@@ -64,7 +64,7 @@ class FeedPresenter(
     private val openApodDetailsObservable: Observable<ApodModel> = Observable.merge(
         openCurrentApodDetailsSubject.switchMap { displayApodObservable },
         openApodDetailsSubject
-    )
+    ).observeOn(AndroidSchedulers.mainThread())
 
 
     override fun onViewAttached() {

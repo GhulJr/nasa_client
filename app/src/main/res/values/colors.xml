@@ -9,6 +9,8 @@
     <color name="colorTextWhite">@color/white_50</color>
     <color name="colorLoadingIndicator">@color/white_50</color>
 
+    <color name="colorPrimaryDarkTransparent">#dd000000</color>
+
     <color name="gray_200">#f4f4f8</color>
     <color name="gray_300">#dddde5</color>
 
