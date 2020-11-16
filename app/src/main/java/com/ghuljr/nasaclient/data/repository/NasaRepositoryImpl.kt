@@ -24,7 +24,7 @@ class NasaRepositoryImpl(
         }
 
     override fun updateApod(): Observable<Resource<ApodModel>> =
-        storageManager.getApodsSortedByDate()
+        storageManager.getApodsSortedByDate().take(1)
             .flatMap {
                 if (it.isEmpty() || it.first().date.isDateExpired(DAY_TIMESTAMP))
                     fetchApod().toObservable()
@@ -34,7 +34,6 @@ class NasaRepositoryImpl(
                 it.data?.let { storageManager.insertApod(it) }
                 it
             }
-
 
     override fun getLatestApod(): Observable<ApodModel> {
         return storageManager.getLatestApod()

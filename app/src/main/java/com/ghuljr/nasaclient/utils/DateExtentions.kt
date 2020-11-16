@@ -12,7 +12,7 @@ fun String.dateToTimestamp(): Long {
 }
 
 fun String.isDateExpired(timeOffset: Long = 0): Boolean {
-    return currentTimestamp() - this.dateToTimestamp() < timeOffset
+    return currentTimestamp() - this.dateToTimestamp() > timeOffset
 }
 
 fun Any.currentTimestamp(): Long = Calendar.getInstance().timeInMillis

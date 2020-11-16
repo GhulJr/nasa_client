@@ -9,7 +9,7 @@ import io.reactivex.Observable
 class StorageManager(private val apodBox: Box<ApodModel>) {
 
     fun getApodsSortedByDate(): Observable<List<ApodModel>> = RxQuery.observable(
-        apodBox.query().sort { o1, o2 -> (o1.date.dateToTimestamp() - o2.date.dateToTimestamp()).toInt() }.build()
+        apodBox.query().sort { o1, o2 -> (o2.date.dateToTimestamp() - o1.date.dateToTimestamp()).toInt() }.build()
     )
 
     fun getLatestApod(): Observable<ApodModel> = getApodsSortedByDate()
