@@ -1,7 +1,5 @@
 package com.ghuljr.nasaclient.ui.main
 
-import android.content.Context
-import android.content.res.Resources
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -22,13 +20,9 @@ import com.ghuljr.nasaclient.ui.common.ResourceError
 import com.ghuljr.nasaclient.utils.getLifecycleObserver
 import com.ghuljr.nasaclient.utils.loadImage
 import com.ghuljr.nasaclient.utils.makeSnackbar
-import com.ghuljr.nasaclient.utils.reactiveClick
-import com.jakewharton.rxbinding4.view.clicks
-import io.reactivex.disposables.CompositeDisposable
 import kotlinx.android.synthetic.main.component_apod_header.view.*
 import kotlinx.android.synthetic.main.fragment_feed.*
 import org.koin.android.ext.android.inject
-import java.util.concurrent.TimeUnit
 
 interface FeedView : BaseView<FeedPresenter> {
     fun diplayApod(apod: ApodModel)
@@ -42,9 +36,11 @@ interface FeedView : BaseView<FeedPresenter> {
 class FeedFragment : Fragment(), FeedView {
 
     private val feedPresenter: FeedPresenter by inject()
-    private val apodAdapter: ApodAdapter by inject()
     private val retainedState: RetainedState by viewModels()
     private val lifecycleObserver: MVPLifecycleObserver<FeedView, FeedPresenter> by lazy { getLifecycleObserver() }
+
+    private lateinit var apodAdapter: ApodAdapter
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -53,8 +49,11 @@ class FeedFragment : Fragment(), FeedView {
         return inflater.inflate(R.layout.fragment_feed, container, false)
     }
 
+    //TODO: make view more reactive
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        apodAdapter = ApodAdapter { feedPresenter.openCurrentApodDetails() }
 
         apod_recyclerview.adapter = apodAdapter
         apod_recyclerview.addItemDecoration(
@@ -62,11 +61,9 @@ class FeedFragment : Fragment(), FeedView {
                 .apply { setDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.divider_horizontal_list)!!) }
         )
 
-        apodHeader.reactiveClick()
-            .subscribe { feedPresenter.openApodDetails() }
+        apodHeader.setOnClickListener { feedPresenter.openCurrentApodDetails() }
 
         viewLifecycleOwner.lifecycle.addObserver(lifecycleObserver)
-        feedPresenter.refreshApod()
     }
 
     override fun diplayApod(apod: ApodModel) {

@@ -20,8 +20,7 @@ class App : Application() {
                     networkModule,
                     storageModule,
                     presenterModule,
-                    repositoryModule,
-                    adapterModule
+                    repositoryModule
                 )
             )
         }

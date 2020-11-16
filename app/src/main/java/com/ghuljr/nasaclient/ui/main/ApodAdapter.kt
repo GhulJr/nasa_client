@@ -9,7 +9,9 @@ import com.ghuljr.nasaclient.data.model.ApodModel
 import com.ghuljr.nasaclient.utils.loadImage
 import kotlinx.android.synthetic.main.item_apod.view.*
 
-class ApodAdapter : RecyclerView.Adapter<ApodAdapter.ViewHolder>() {
+class ApodAdapter(
+    private val onItemClick: (apod: ApodModel) -> Unit
+) : RecyclerView.Adapter<ApodAdapter.ViewHolder>() {
 
     var apods: List<ApodModel> = listOf()
         set(value) {
@@ -33,6 +35,7 @@ class ApodAdapter : RecyclerView.Adapter<ApodAdapter.ViewHolder>() {
             apod_thumbnail.loadImage(apod.url)
             apod_date.text = apod.date
             apod_title.text = apod.title
+            itemView.setOnClickListener { onItemClick(apod) }
         }
     }
 }

@@ -23,39 +23,29 @@ class SplashPresenter(
     private val updateApodListObservable: Observable<Resource<ApodModel>> = updateApodListSubject
         .flatMap { nasaRepository.updateApod().startWith(Resource.Loading()) }
         .share()
-        .doOnNext { Log.i("SplashTest", "check1 - ${it.error}") }
 
     private val shouldLaunchAppObservable: Observable<Boolean> = updateApodListObservable
         .filter { it is Resource.Error }
         .flatMap { isApodCachedObservable }
         .share()
-        .doOnNext { Log.i("SplashTest", "check2") }
 
     private val redirectToAppObservable: Observable<Unit> = updateApodListObservable
-        .doOnNext { Log.i("SplashTest", "check3a") }
         .filter { it is Resource.Success }
-        .doOnNext { Log.i("SplashTest", "check3b") }
         .map { Unit }
         .observeOn(AndroidSchedulers.mainThread())
 
     private val redirectToAppWithErrorObservable: Observable<Unit> = shouldLaunchAppObservable
-        .doOnNext { Log.i("SplashTest", "check4a") }
         .filter { it }
-        .doOnNext { Log.i("SplashTest", "check4a") }
         .map { Unit }
         .observeOn(AndroidSchedulers.mainThread())
 
     private val showApodErrorObservable: Observable<Unit> = shouldLaunchAppObservable
-        .doOnNext { Log.i("SplashTest", "check5a") }
         .filter { !it }
-        .doOnNext { Log.i("SplashTest", "check5b") }
         .map { Unit }
         .observeOn(AndroidSchedulers.mainThread())
 
     private val isDataLoadingObservable: Observable<Boolean> = updateApodListObservable
-        .doOnNext { Log.i("SplashTest", "check6a") }
         .map { it is Resource.Loading }
-        .doOnNext { Log.i("SplashTest", "check6b") }
         .observeOn(AndroidSchedulers.mainThread())
 
     override fun onViewAttached() {
