@@ -51,7 +51,7 @@
                     tools:text="22.10.2020" />
 
                 <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/apod_descrpition"
+                    android:id="@+id/apod_explanation"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/appMargin"
@@ -72,7 +72,6 @@
                     app:cardBackgroundColor="@color/colorPrimaryDarkTransparent"
                     app:layout_behavior="@string/appbar_scrolling_view_behavior"
                     app:shapeAppearance="?shapeAppearanceLargeComponent">
-
 
                 </com.google.android.material.card.MaterialCardView>
 
@@ -114,7 +113,8 @@
                 android:background="@android:color/transparent"
                 android:elevation="0dp"
                 app:contentInsetStart="0dp"
-                app:layout_collapseMode="pin" />
+                app:layout_collapseMode="pin"
+                app:navigationIcon="@drawable/ic_arrow_back"/>
 
         </com.google.android.material.appbar.CollapsingToolbarLayout>
 
