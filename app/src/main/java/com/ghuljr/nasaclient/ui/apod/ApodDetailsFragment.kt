@@ -45,12 +45,14 @@ class ApodDetailsFragment : Fragment(), ApodDetailsView {
 
         NavigationUI.setupWithNavController(toolbar, findNavController())
         toolbar.title = ""
+
+        apodDetailsPresenter.getApodDetails(args.apodId)
     }
 
     override fun displayApod(apod: ApodModel) {
         apod_image.loadImage(apod.url)
         apodTitle.text = apod.title
-        apod_date.text = apod.date
+        apod_details_date.text = apod.date
         apod_explanation.text = apod.explanation
     }
 

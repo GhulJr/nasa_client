@@ -41,7 +41,7 @@
                     tools:text="Reflections of the Ghost Nebula Nebula Nebul aNebula Nebula Nebula Nebula" />
 
                 <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/apodDate"
+                    android:id="@+id/apod_details_date"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"

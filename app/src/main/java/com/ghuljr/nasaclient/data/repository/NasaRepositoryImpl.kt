@@ -23,6 +23,7 @@ class NasaRepositoryImpl(
             Resource.Error(NetworkError.InternetConnectionError)
         }
 
+    //
     override fun updateApod(): Observable<Resource<ApodModel>> =
         storageManager.getApodsSortedByDate().take(1)
             .flatMap {
@@ -41,6 +42,10 @@ class NasaRepositoryImpl(
 
     override fun getApodList(): Observable<List<ApodModel>> {
         return storageManager.getApodsSortedByDate()
+    }
+
+    override fun getApodById(id: Long): Observable<ApodModel> {
+        return storageManager.getApodById(id)
     }
 
     override fun insertApod(apod: ApodModel): Long {

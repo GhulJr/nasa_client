@@ -24,7 +24,6 @@ class FeedPresenter(
     private val openCurrentApodDetailsSubject: PublishSubject<Unit> = PublishSubject.create()
     private val openApodDetailsSubject: PublishSubject<ApodModel> = PublishSubject.create()
 
-
     private val displayApodObservable: Observable<ApodModel> = nasaRepository.getLatestApod()
         .subscribeOn(Schedulers.io())
         .replay(1).refCount()
@@ -37,7 +36,6 @@ class FeedPresenter(
         .subscribeOn(Schedulers.io())
         .map { if (it.isNotEmpty()) it.drop(1) else it }
         .share()
-
 
     private val isApodArchiveVisibleObservable: Observable<Boolean> = apodArchiveObservable
         .map { it.isNotEmpty() }
