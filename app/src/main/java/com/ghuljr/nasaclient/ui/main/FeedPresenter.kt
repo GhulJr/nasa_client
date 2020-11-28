@@ -6,6 +6,7 @@ import com.ghuljr.nasaclient.data.source.Resource
 import com.ghuljr.nasaclient.ui.base.mvp.BasePresenter
 import com.ghuljr.nasaclient.ui.common.NetworkError
 import com.ghuljr.nasaclient.ui.common.ResourceError
+import com.ghuljr.nasaclient.ui.common.ResponseError
 import com.ghuljr.nasaclient.utils.DAY_TIMESTAMP
 import com.ghuljr.nasaclient.utils.isDateExpired
 import io.reactivex.Observable
@@ -26,11 +27,10 @@ class FeedPresenter(
 
     private val displayApodObservable: Observable<ApodModel> = nasaRepository.getLatestApod()
         .subscribeOn(Schedulers.io())
-        .replay(1).refCount()
+        .replay(1)
+        .refCount()
         .observeOn(AndroidSchedulers.mainThread())
 
-    private val isDataUpdatedObservable: Observable<Boolean> = displayApodObservable
-        .map { !it.date.isDateExpired(DAY_TIMESTAMP) }
 
     private val apodArchiveObservable: Observable<List<ApodModel>> = nasaRepository.getApodList()
         .subscribeOn(Schedulers.io())
@@ -45,7 +45,7 @@ class FeedPresenter(
         .filter { it.isNotEmpty() }
         .observeOn(AndroidSchedulers.mainThread())
 
-    private val refreshApodObservable: Observable<Resource<ApodModel>> = refreshApodSubject
+    private val refreshApodObservable: Observable<Resource<Void>> = refreshApodSubject
         .subscribeOn(Schedulers.io())
         .switchMap { nasaRepository.updateApod().startWith(Resource.Loading()) }
         .share()
@@ -56,7 +56,7 @@ class FeedPresenter(
 
     private val refreshApodErrorObservable: Observable<ResourceError> = refreshApodObservable
         .filter { it is Resource.Error }
-        .map { it.error ?: NetworkError.ResponseError }
+        .map { it.error ?: ResponseError }
         .observeOn(AndroidSchedulers.mainThread())
 
     private val openApodDetailsObservable: Observable<ApodModel> = Observable.merge(
@@ -76,7 +76,6 @@ class FeedPresenter(
                 setApodArchiveObservable.subscribe { view?.setApodArchiveList(it) },
                 refreshApodLoadingObservable.subscribe { /*TODO: make skeleton loader*/ },
                 openApodDetailsObservable.subscribe { view?.openApodDetails(it) },
-                isDataUpdatedObservable.subscribe { if (!it) refreshApod() }
             )
         )
     }

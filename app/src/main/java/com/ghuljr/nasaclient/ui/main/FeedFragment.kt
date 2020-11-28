@@ -17,6 +17,7 @@ import com.ghuljr.nasaclient.ui.base.mvp.MVPLifecycleObserver
 import com.ghuljr.nasaclient.ui.base.mvp.RetainedState
 import com.ghuljr.nasaclient.ui.common.NetworkError
 import com.ghuljr.nasaclient.ui.common.ResourceError
+import com.ghuljr.nasaclient.ui.common.UpToDateError
 import com.ghuljr.nasaclient.utils.getLifecycleObserver
 import com.ghuljr.nasaclient.utils.loadImage
 import com.ghuljr.nasaclient.utils.makeSnackbar
@@ -53,17 +54,16 @@ class FeedFragment : Fragment(), FeedView {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        apodAdapter = ApodAdapter { feedPresenter.openCurrentApodDetails() }
+        viewLifecycleOwner.lifecycle.addObserver(lifecycleObserver)
+
+        apodHeader.setOnClickListener { feedPresenter.openCurrentApodDetails() }
+        apodAdapter = ApodAdapter { feedPresenter.openApodDetails(it) }
 
         apod_recyclerview.adapter = apodAdapter
         apod_recyclerview.addItemDecoration(
             DividerItemDecoration(context, DividerItemDecoration.HORIZONTAL)
                 .apply { setDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.divider_horizontal_list)!!) }
         )
-
-        apodHeader.setOnClickListener { feedPresenter.openCurrentApodDetails() }
-
-        viewLifecycleOwner.lifecycle.addObserver(lifecycleObserver)
     }
 
     override fun diplayApod(apod: ApodModel) {
@@ -76,7 +76,7 @@ class FeedFragment : Fragment(), FeedView {
 
     override fun displayApodError(error: ResourceError) {
         when(error) {
-            is NetworkError.UpToDateError -> makeSnackbar(apodRoot, R.string.error_up_to_date, R.string.ok)
+            is UpToDateError -> makeSnackbar(apodRoot, R.string.error_up_to_date, R.string.ok)
             else -> makeSnackbar(apodRoot, R.string.error_internet_connection, R.string.retry_label) {
                 feedPresenter.refreshApod()
             }

@@ -8,8 +8,14 @@ sealed class Resource<T>(
     val error: ResourceError? = null
 ) {
 
-    class Success<T>(data: T) : Resource<T>(data = data)
+    class Success<T>(data: T? = null) : Resource<T>(data = data)
     class Loading <T>: Resource<T>()
     class Error<T>(error: ResourceError): Resource<T>(error = error)
+}
+
+fun <T> Resource<T>.toVoid(): Resource<Void> = when(this) {
+    is Resource.Success -> Resource.Success()
+    is Resource.Loading -> Resource.Loading()
+    is Resource.Error -> Resource.Error(this.error!!)
 }
 

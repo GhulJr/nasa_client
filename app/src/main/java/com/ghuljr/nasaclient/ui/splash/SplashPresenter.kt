@@ -20,14 +20,16 @@ class SplashPresenter(
         .getApodList()
         .map { it.isNotEmpty() }
 
-    private val updateApodListObservable: Observable<Resource<ApodModel>> = updateApodListSubject
+    private val updateApodListObservable: Observable<Resource<Void>> = updateApodListSubject
         .flatMap { nasaRepository.updateApod().startWith(Resource.Loading()) }
-        .share()
+        .replay(1)
+        .refCount()
 
     private val shouldLaunchAppObservable: Observable<Boolean> = updateApodListObservable
         .filter { it is Resource.Error }
         .flatMap { isApodCachedObservable }
-        .share()
+        .replay(1)
+        .refCount()
 
     private val redirectToAppObservable: Observable<Unit> = updateApodListObservable
         .filter { it is Resource.Success }
@@ -50,6 +52,7 @@ class SplashPresenter(
 
     override fun onViewAttached() {
         super.onViewAttached()
+
         disposable.set(CompositeDisposable(
             redirectToAppObservable.subscribe { view?.redirectToMainActivity() },
             redirectToAppWithErrorObservable.subscribe { view?.redirectToMainActivity() },

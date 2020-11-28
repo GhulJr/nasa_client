@@ -9,7 +9,7 @@
     <!-- Error -->
     <string name="error_network">Network error</string>
     <string name="error_up_to_date">Everything is up to date.</string>
-    <string name="error_internet_connection">No internet connection.</string>
+    <string name="error_internet_connection">There was a problem with connecting to the server.</string>
     <string name="error_response">Unable to connect with server.</string>
 
     <!--APoD-->

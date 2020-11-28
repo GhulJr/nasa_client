@@ -10,6 +10,5 @@ interface NasaRepository {
     fun getLatestApod(): Observable<ApodModel>
     fun getApodList(): Observable<List<ApodModel>>
     fun getApodById(id: Long): Observable<ApodModel>
-    fun insertApod(apod: ApodModel): Long
-    fun updateApod(): Observable<Resource<ApodModel>>
+    fun updateApod(): Observable<Resource<Void>>
 }
