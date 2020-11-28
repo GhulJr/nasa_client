@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.apod.ApodDetailsFragment">
+    tools:context=".ui.apod.ApodDetailsFragment"
+    android:fitsSystemWindows="true">
 
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
@@ -85,14 +86,12 @@
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="wrap_content"
         android:layout_height="300dp"
-        android:background="@android:color/transparent"
-        android:fitsSystemWindows="true">
+        android:background="@android:color/transparent">
 
         <com.google.android.material.appbar.CollapsingToolbarLayout
             android:id="@+id/collapsing_toolbar"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:fitsSystemWindows="true"
             app:layout_scrollFlags="scroll|exitUntilCollapsed"
             app:statusBarScrim="@android:color/transparent">
 

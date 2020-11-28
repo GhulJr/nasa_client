@@ -23,16 +23,26 @@
             app:navigationIcon="@drawable/ic_arrow_back"
             app:navigationIconColor="@color/colorTextGray">
 
-            <com.google.android.material.textfield.TextInputEditText
+            <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@null"
-                android:hint="@string/search"
-                android:inputType="textAutoComplete"
-                android:maxLines="1"
-                android:padding="@dimen/appMargin"
-                android:textColor="@color/colorTextGray"
-                android:textCursorDrawable="@null" />
+                app:endIconMode="clear_text"
+                app:hintEnabled="false"
+                app:boxBackgroundMode="none"
+                app:boxBackgroundColor="@color/colorPrimary">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@null"
+                    android:hint="@string/search"
+                    android:inputType=""
+                    android:maxLines="1"
+                    android:padding="@dimen/appMargin"
+                    android:textColor="@color/colorTextGray"
+                    android:textCursorDrawable="@null" />
+
+            </com.google.android.material.textfield.TextInputLayout>
 
         </com.google.android.material.appbar.MaterialToolbar>
 

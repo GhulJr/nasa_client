@@ -7,6 +7,7 @@
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:windowBackground">@color/colorBackground</item>
         <item name="android:textColor">@color/colorTextWhite</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
     </style>
 
     <style name="SplashScreenTheme" parent = "AppTheme">
