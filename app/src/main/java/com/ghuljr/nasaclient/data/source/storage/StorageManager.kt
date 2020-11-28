@@ -21,9 +21,10 @@ class StorageManager(private val apodBox: Box<ApodModel>) {
         apodBox.sorted().build()
     ).subscribeOn(Schedulers.io())
 
-    fun getApodByDate(date: String): Observable<List<ApodModel>> = RxQuery.observable(
+    fun getApodByDate(date: String): Single<List<ApodModel>> = RxQuery.single(
         apodBox.query().equal(ApodModel_.date, date).sorted().build()
     ).subscribeOn(Schedulers.io())
+
 
     fun getLatestApod(): Observable<ApodModel> = getApodsSortedByDate()
         .filter { it.isNotEmpty() }
@@ -34,7 +35,7 @@ class StorageManager(private val apodBox: Box<ApodModel>) {
 
     fun insertApod(apodModel: ApodModel): Observable<Long> = Observable.just(apodModel)
         .flatMap { apod ->
-            getApodByDate(apod.date)
+            getApodByDate(apod.date).toObservable()
                 .map { it.isEmpty() }
                 .map { if(it) apodBox.put(apod) else 0L }
         }

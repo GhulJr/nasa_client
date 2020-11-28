@@ -47,6 +47,10 @@ class NasaRepositoryImpl(
                     }
             } ?: Observable.just(it.toVoid())
         }
+        .replay(1)
+        .refCount()
+        .doOnNext { Log.i("UpdateApodTest", "check2 - ${it.javaClass}") }
+
 
 
 
