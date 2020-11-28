@@ -13,6 +13,9 @@
         <action
             android:id="@+id/action_feedFragment_to_apodDetailsFragment"
             app:destination="@id/apodDetailsFragment" />
+        <action
+            android:id="@+id/action_feedFragment_to_searchFragment"
+            app:destination="@id/searchFragment" />
     </fragment>
     <fragment
         android:id="@+id/apodDetailsFragment"
@@ -23,4 +26,9 @@
             android:name="apodId"
             app:argType="long" />
     </fragment>
+    <fragment
+        android:id="@+id/searchFragment"
+        android:name="com.ghuljr.nasaclient.ui.search.SearchFragment"
+        android:label="@string/search"
+        tools:layout="@layout/fragment_search" />
 </navigation>

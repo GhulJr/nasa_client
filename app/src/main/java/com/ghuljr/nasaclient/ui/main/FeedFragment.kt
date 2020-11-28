@@ -56,9 +56,13 @@ class FeedFragment : Fragment(), FeedView {
 
         viewLifecycleOwner.lifecycle.addObserver(lifecycleObserver)
 
+        feed_search.setOnClickListener { findNavController().navigate(
+            FeedFragmentDirections.actionFeedFragmentToSearchFragment())
+        }
         apodHeader.setOnClickListener { feedPresenter.openCurrentApodDetails() }
         apodAdapter = ApodAdapter { feedPresenter.openApodDetails(it) }
 
+        //TODO: use custom decoration
         apod_recyclerview.adapter = apodAdapter
         apod_recyclerview.addItemDecoration(
             DividerItemDecoration(context, DividerItemDecoration.HORIZONTAL)
