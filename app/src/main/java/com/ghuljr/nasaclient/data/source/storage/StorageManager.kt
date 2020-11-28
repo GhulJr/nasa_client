@@ -1,5 +1,6 @@
 package com.ghuljr.nasaclient.data.source.storage
 
+import android.util.Log
 import com.ghuljr.nasaclient.data.model.ApodModel
 import com.ghuljr.nasaclient.data.model.ApodModel_
 import com.ghuljr.nasaclient.utils.dateToTimestamp

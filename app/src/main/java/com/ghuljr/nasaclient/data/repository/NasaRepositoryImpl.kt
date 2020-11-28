@@ -7,22 +7,20 @@ import com.ghuljr.nasaclient.data.source.remote.NasaService
 import com.ghuljr.nasaclient.data.source.storage.StorageManager
 import com.ghuljr.nasaclient.data.source.toVoid
 import com.ghuljr.nasaclient.ui.common.InternetConnectionError
-import com.ghuljr.nasaclient.ui.common.NetworkError
 import com.ghuljr.nasaclient.ui.common.UpToDateError
 import com.ghuljr.nasaclient.utils.DAY_TIMESTAMP
 import com.ghuljr.nasaclient.utils.isDateExpired
 import io.reactivex.Observable
 import io.reactivex.Single
+import io.reactivex.schedulers.Schedulers
 
 class NasaRepositoryImpl(
     private val nasaService: NasaService,
     private val storageManager: StorageManager
 ) : NasaRepository {
 
-    private val isApodOutdatedObservable: Observable<Boolean> =
-        storageManager.getApodsSortedByDate()
+    private val isApodOutdatedSingle: Single<Boolean> = storageManager.getApodsSortedByDateSingle()
             .map { it.isEmpty() || it.first().date.isDateExpired(DAY_TIMESTAMP) }
-            .distinctUntilChanged()
 
     override fun fetchApod(): Single<Resource<ApodModel>> = nasaService.fetchApod()
         .map { Resource.Success(it) as Resource<ApodModel> }
@@ -32,8 +30,9 @@ class NasaRepositoryImpl(
         }
 
     override fun updateApod(): Observable<Resource<Void>> = Observable.just(Unit)
-        .switchMap {
-            isApodOutdatedObservable
+        .subscribeOn(Schedulers.io())
+        .flatMap {
+            isApodOutdatedSingle.toObservable()
                 .flatMap {
                     if (it) fetchApod().toObservable()
                     else Observable.just(Resource.Error(UpToDateError))
@@ -48,6 +47,7 @@ class NasaRepositoryImpl(
                     }
             } ?: Observable.just(it.toVoid())
         }
+
 
 
     override fun getLatestApod(): Observable<ApodModel> {

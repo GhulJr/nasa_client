@@ -38,12 +38,6 @@
           "id": "6:7894549345868256475",
           "name": "url",
           "type": 9
-        },
-        {
-          "id": "7:4952656892215047759",
-          "name": "j",
-          "type": 5,
-          "flags": 4
         }
       ],
       "relations": []
@@ -57,7 +51,9 @@
   "modelVersionParserMinimum": 5,
   "retiredEntityUids": [],
   "retiredIndexUids": [],
-  "retiredPropertyUids": [],
+  "retiredPropertyUids": [
+    4952656892215047759
+  ],
   "retiredRelationUids": [],
   "version": 1
 }
