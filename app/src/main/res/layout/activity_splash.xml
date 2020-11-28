@@ -17,11 +17,13 @@
         app:layout_constraintStart_toStartOf="parent"/>
 
     <com.google.android.material.progressindicator.ProgressIndicator
+        android:id="@+id/activity_splash_loading_indicator"
         android:layout_width="@dimen/iconSize"
         android:layout_height="@dimen/iconSize"
         android:indeterminate="true"
-        android:visibility="visible"
+        android:visibility="gone"
         android:translationY="-100dp"
+        app:indicatorColor="@color/colorLoadingIndicator"
         app:layout_constraintTop_toBottomOf="@id/nasaLogo"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_height="@dimen/default_topbar_size"
+    android:layout_width="match_parent"
+    android:layout_margin="@dimen/appMargin"
+    app:cardBackgroundColor="@color/colorPrimary"
+    app:cardCornerRadius="@dimen/appCornerRadius">
+
+    <com.google.android.material.textview.MaterialTextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:hint="@string/search"
+        android:textSize="@dimen/searchTextSize"
+        android:textColor="@color/colorTextGray"
+        android:textColorHint="@color/colorTextGray"
+        android:textCursorDrawable="@null"
+        android:background="@android:color/transparent"
+        android:maxLines="1"
+        android:maxEms="30"
+        android:padding="@dimen/appMargin"
+        android:drawablePadding="@dimen/appMarginSmall"
+        app:drawableStartCompat="@drawable/ic_search"
+        app:layout_scrollFlags="scroll|enterAlwaysCollapsed"/>
+
+</com.google.android.material.card.MaterialCardView>

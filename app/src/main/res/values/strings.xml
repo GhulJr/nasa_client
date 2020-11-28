@@ -1,3 +1,20 @@
 <resources>
+    <!-- General -->
     <string name="app_name">NasaClient</string>
+    <string name="search">Search</string>
+    <string name="retry_label">Retry</string>
+    <string name="exit">Exit</string>
+    <string name="lorem_ipsum">"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."</string>
+
+    <!-- Error -->
+    <string name="error_network">Network error</string>
+    <string name="error_up_to_date">Everything is up to date.</string>
+    <string name="error_internet_connection">There was a problem with connecting to the server.</string>
+    <string name="error_response">Unable to connect with server.</string>
+
+    <!--APoD-->
+    <string name="apod_label">APoD</string>
+    <string name="archive">Archive</string>
+    <string name="apod_copyright">by %1$s</string>
+
 </resources>

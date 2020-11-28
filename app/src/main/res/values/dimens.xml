@@ -1,4 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="iconSize">32dp</dimen>
+    <dimen name="appMargin">16dp</dimen>
+    <dimen name="appMarginSmall">8dp</dimen>
+    <dimen name="appCornerRadius">8dp</dimen>
+    <dimen name="searchTextSize">16sp</dimen>
+    <dimen name="searchIconSize">16sp</dimen>
+    <dimen name="apodHeaderSize">250dp</dimen>
+    <dimen name="apodItemSize">150dp</dimen>
+    <dimen name="default_topbar_size">54dp</dimen>
 </resources>

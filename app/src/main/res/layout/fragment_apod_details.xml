@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.apod.ApodDetailsFragment">
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingStart="@dimen/appMargin"
+        android:paddingTop="32dp"
+        android:paddingEnd="@dimen/appMargin"
+        app:cardBackgroundColor="@color/colorPrimaryDarkTransparent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        app:shapeAppearance="?shapeAppearanceLargeComponent">
+
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/scrollView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingBottom="?attr/actionBarSize"
+            android:clipToPadding="false"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/apodTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/appMargin"
+                    android:layout_marginTop="@dimen/appMargin"
+                    android:layout_marginEnd="@dimen/appMargin"
+                    android:textColor="@color/white_50"
+                    android:textSize="24sp"
+                    android:textStyle="bold"
+                    tools:text="Reflections of the Ghost Nebula Nebula Nebul aNebula Nebula Nebula Nebula" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/apod_details_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/appMargin"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginBottom="@dimen/appMargin"
+                    android:textSize="16sp"
+                    tools:text="22.10.2020" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/apod_explanation"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/appMargin"
+                    android:layout_marginBottom="@dimen/appMargin"
+                    android:textSize="16sp"
+                    tools:text="@string/lorem_ipsum" />
+
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/apod_details_copyright"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginEnd="@dimen/appMargin"
+                    android:layout_marginBottom="@dimen/appMargin"
+                    android:ems="10"
+                    android:gravity="end"
+                    android:textStyle="italic"
+                    android:textSize="16sp"
+                    tools:text="by Edgar Allan Poe, Edgar Allan Poe, Edgar Allan Poe" />
+
+
+            </LinearLayout>
+
+        </androidx.core.widget.NestedScrollView>
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="wrap_content"
+        android:layout_height="300dp"
+        android:background="@android:color/transparent"
+        android:fitsSystemWindows="true">
+
+        <com.google.android.material.appbar.CollapsingToolbarLayout
+            android:id="@+id/collapsing_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fitsSystemWindows="true"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed"
+            app:statusBarScrim="@android:color/transparent">
+
+            <ImageView
+                android:id="@+id/apod_image"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fitsSystemWindows="true"
+                android:scaleType="centerCrop"
+                app:layout_collapseMode="parallax"
+                tools:ignore="ContentDescription"
+                tools:src="@drawable/apod_sample2" />
+
+            <com.google.android.material.appbar.MaterialToolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:background="@android:color/transparent"
+                android:elevation="0dp"
+                app:contentInsetStart="0dp"
+                app:layout_collapseMode="pin"
+                app:navigationIcon="@drawable/ic_arrow_back" />
+
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
