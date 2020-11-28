@@ -25,7 +25,6 @@ class StorageManager(private val apodBox: Box<ApodModel>) {
         apodBox.query().equal(ApodModel_.date, date).sorted().build()
     ).subscribeOn(Schedulers.io())
 
-
     fun getLatestApod(): Observable<ApodModel> = getApodsSortedByDate()
         .filter { it.isNotEmpty() }
         .map { it.first() }

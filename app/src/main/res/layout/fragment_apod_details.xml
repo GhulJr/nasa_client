@@ -9,7 +9,6 @@
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="-32dp"
         android:paddingStart="@dimen/appMargin"
         android:paddingTop="32dp"
         android:paddingEnd="@dimen/appMargin"
@@ -21,6 +20,8 @@
             android:id="@+id/scrollView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:paddingBottom="?attr/actionBarSize"
+            android:clipToPadding="false"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
             <LinearLayout
@@ -32,8 +33,8 @@
                     android:id="@+id/apodTitle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/appMargin"
                     android:layout_marginStart="@dimen/appMargin"
+                    android:layout_marginTop="@dimen/appMargin"
                     android:layout_marginEnd="@dimen/appMargin"
                     android:textColor="@color/white_50"
                     android:textSize="24sp"
@@ -44,8 +45,8 @@
                     android:id="@+id/apod_details_date"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
                     android:layout_marginStart="@dimen/appMargin"
+                    android:layout_marginTop="4dp"
                     android:layout_marginBottom="@dimen/appMargin"
                     android:textSize="16sp"
                     tools:text="22.10.2020" />
@@ -59,28 +60,27 @@
                     android:textSize="16sp"
                     tools:text="@string/lorem_ipsum" />
 
+
                 <com.google.android.material.textview.MaterialTextView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
+                    android:id="@+id/apod_details_copyright"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginEnd="@dimen/appMargin"
+                    android:layout_marginBottom="@dimen/appMargin"
+                    android:ems="10"
+                    android:gravity="end"
+                    android:textStyle="italic"
+                    android:textSize="16sp"
+                    tools:text="by Edgar Allan Poe, Edgar Allan Poe, Edgar Allan Poe" />
 
-                <com.google.android.material.card.MaterialCardView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:paddingStart="@dimen/appMargin"
-                    android:paddingTop="32dp"
-                    android:paddingEnd="@dimen/appMargin"
-                    app:cardBackgroundColor="@color/colorPrimaryDarkTransparent"
-                    app:layout_behavior="@string/appbar_scrolling_view_behavior"
-                    app:shapeAppearance="?shapeAppearanceLargeComponent">
-
-                </com.google.android.material.card.MaterialCardView>
 
             </LinearLayout>
 
         </androidx.core.widget.NestedScrollView>
 
     </com.google.android.material.card.MaterialCardView>
-
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="wrap_content"
@@ -109,16 +109,15 @@
             <com.google.android.material.appbar.MaterialToolbar
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
-                android:layout_height="200dp"
+                android:layout_height="150dp"
                 android:background="@android:color/transparent"
                 android:elevation="0dp"
                 app:contentInsetStart="0dp"
                 app:layout_collapseMode="pin"
-                app:navigationIcon="@drawable/ic_arrow_back"/>
+                app:navigationIcon="@drawable/ic_arrow_back" />
 
         </com.google.android.material.appbar.CollapsingToolbarLayout>
 
     </com.google.android.material.appbar.AppBarLayout>
-
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
