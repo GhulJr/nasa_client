@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.NavigationUI
@@ -13,7 +14,8 @@ import com.ghuljr.nasaclient.ui.base.mvp.BaseView
 import com.ghuljr.nasaclient.ui.base.mvp.MVPLifecycleObserver
 import com.ghuljr.nasaclient.ui.base.mvp.RetainedState
 import com.ghuljr.nasaclient.utils.getLifecycleObserver
-import kotlinx.android.synthetic.main.fragment_apod_details.*
+import kotlinx.android.synthetic.main.fragment_apod_details.toolbar
+import kotlinx.android.synthetic.main.fragment_search.*
 import org.koin.android.ext.android.inject
 
 interface SearchView : BaseView<SearchPresenter> {
@@ -40,6 +42,13 @@ class SearchFragment : Fragment(), SearchView {
 
         NavigationUI.setupWithNavController(toolbar, findNavController())
         toolbar.title = ""
+
+        search_edit_text.setOnEditorActionListener { _, actionId, _ ->
+            if(actionId == EditorInfo.IME_ACTION_SEARCH) {
+                findNavController().navigate(SearchFragmentDirections.actionSearchFragmentToSearchResultFragment())
+                true
+            } else false
+        }
     }
 
     override fun getPresenter(): SearchPresenter = searchPresenter
