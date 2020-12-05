@@ -2,7 +2,7 @@ package com.ghuljr.nasaclient.di
 
 import android.content.Context
 import com.ghuljr.nasaclient.BuildConfig
-import com.ghuljr.nasaclient.data.source.remote.NasaService
+import com.ghuljr.nasaclient.data.source.remote.service.NasaService
 import okhttp3.Cache
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor

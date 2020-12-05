@@ -3,7 +3,7 @@ package com.ghuljr.nasaclient.data.repository
 import android.util.Log
 import com.ghuljr.nasaclient.data.model.ApodModel
 import com.ghuljr.nasaclient.data.source.Resource
-import com.ghuljr.nasaclient.data.source.remote.NasaService
+import com.ghuljr.nasaclient.data.source.remote.service.NasaService
 import com.ghuljr.nasaclient.data.source.storage.StorageManager
 import com.ghuljr.nasaclient.data.source.toVoid
 import com.ghuljr.nasaclient.ui.common.InternetConnectionError

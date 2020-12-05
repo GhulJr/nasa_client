@@ -1,4 +1,4 @@
-package com.ghuljr.nasaclient.data.source.remote
+package com.ghuljr.nasaclient.data.source.remote.service
 
 import com.ghuljr.nasaclient.data.model.ApodModel
 import io.reactivex.Single

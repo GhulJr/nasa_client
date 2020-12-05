@@ -7,13 +7,13 @@ import io.objectbox.annotation.Id
 
 @Entity
 @JsonClass(generateAdapter = true)
-data class ApodModel(
+data class NasaMediaModel(
     @Id var id: Long = 0,
-    val copyright: String,
-    val date: String,
-    val explanation: String,
+    @Json(name = "nasa_id") val nasaId: String,
     @Json(name = "media_type") val mediaType: String,
+    @Json(name = "date_created") val date: String,
+    val description: String,
     val title: String,
-    val url: String,
-    val hdurl: String
+    val center: String
+    //TODO: apply keywords
 )
