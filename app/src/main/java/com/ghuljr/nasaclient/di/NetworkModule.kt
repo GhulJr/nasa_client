@@ -47,7 +47,6 @@ private fun provideOkHttp(cache: Cache): OkHttpClient  {
 private fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit = Retrofit.Builder()
     .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
     .addConverterFactory(MoshiConverterFactory.create())
-    .baseUrl(BuildConfig.BASE_URL)
     .client(okHttpClient)
     .build()
 

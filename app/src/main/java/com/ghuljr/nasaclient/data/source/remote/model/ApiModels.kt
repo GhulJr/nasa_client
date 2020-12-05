@@ -1,13 +1,12 @@
 package com.ghuljr.nasaclient.data.source.remote.model
 
-import com.ghuljr.nasaclient.data.model.NasaMediaModel
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 
 
 @JsonClass(generateAdapter = true)
-data class Collection(
-    val items: List<Item<NasaMediaModel>>,
+data class ApiResponse(
+    val items: List<Item<NasaSearchResult>>,
     val version: String,
     val links: List<Links>,
     val href: String
@@ -29,6 +28,17 @@ data class Links(
     val rel: String?,
     val href: String?,
     val render: String?
+)
+
+@JsonClass(generateAdapter = true)
+data class NasaSearchResult(
+    @Json(name = "nasa_id") val nasaId: String,
+    @Json(name = "media_type") val mediaType: String,
+    @Json(name = "date_created") val date: String,
+    val description: String,
+    val title: String,
+    val center: String
+    //TODO: apply keywords
 )
 
 
