@@ -1,6 +1,7 @@
 package com.ghuljr.nasaclient.data.repository
 
 import com.ghuljr.nasaclient.data.model.ApodModel
+import com.ghuljr.nasaclient.data.model.NasaMediaModel
 import com.ghuljr.nasaclient.data.source.Resource
 import com.ghuljr.nasaclient.data.source.remote.model.ApiResponse
 import io.reactivex.Observable
@@ -12,4 +13,5 @@ interface NasaRepository {
     fun getApodList(): Observable<List<ApodModel>>
     fun getApodById(id: Long): Observable<ApodModel>
     fun updateApod(): Observable<Resource<Void>>
+    fun searchNasaMedia(query: String): Single<List<NasaMediaModel>>
 }

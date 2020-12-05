@@ -2,7 +2,9 @@ package com.ghuljr.nasaclient.data.repository
 
 import android.util.Log
 import com.ghuljr.nasaclient.data.model.ApodModel
+import com.ghuljr.nasaclient.data.model.NasaMediaModel
 import com.ghuljr.nasaclient.data.source.Resource
+import com.ghuljr.nasaclient.data.source.remote.model.toNasaMediaModel
 import com.ghuljr.nasaclient.data.source.remote.service.NasaService
 import com.ghuljr.nasaclient.data.source.storage.StorageManager
 import com.ghuljr.nasaclient.data.source.toVoid
@@ -51,7 +53,9 @@ class NasaRepositoryImpl(
         .refCount()
         .doOnNext { Log.i("UpdateApodTest", "check2 - ${it.javaClass}") }
 
-
+    override fun searchNasaMedia(query: String): Single<List<NasaMediaModel>> = nasaService.searchNasaMedia(query)
+        .subscribeOn(Schedulers.io())
+        .map { response -> response.items.map { it.toNasaMediaModel() } }
 
 
     override fun getLatestApod(): Observable<ApodModel> {

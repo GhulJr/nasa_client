@@ -54,7 +54,7 @@
     },
     {
       "id": "2:2639072003584594943",
-      "lastPropertyId": "7:6425242985980158115",
+      "lastPropertyId": "8:6512574370102903087",
       "name": "NasaMediaModel",
       "properties": [
         {
@@ -91,6 +91,11 @@
         {
           "id": "7:6425242985980158115",
           "name": "center",
+          "type": 9
+        },
+        {
+          "id": "8:6512574370102903087",
+          "name": "thumbnailUrl",
           "type": 9
         }
       ],
