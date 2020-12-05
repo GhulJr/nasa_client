@@ -7,4 +7,6 @@ class SearchResultPresenter(
     private val nasaRepository: NasaRepository
 ): BasePresenter<SearchResultView>() {
 
+
+
 }

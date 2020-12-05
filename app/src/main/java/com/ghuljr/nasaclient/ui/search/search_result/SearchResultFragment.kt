@@ -39,7 +39,8 @@ class SearchResultFragment : Fragment(), SearchResultView {
         viewLifecycleOwner.lifecycle.addObserver(lifecycleObserver)
 
         NavigationUI.setupWithNavController(toolbar, findNavController())
-        toolbar.title = ""
+        toolbar.title = "#apollo"
+
     }
 
     override fun getPresenter(): SearchResultPresenter = searchResultPresenter

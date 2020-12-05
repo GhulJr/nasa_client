@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    app:cardCornerRadius="@dimen/appCornerRadius"
+    app:cardBackgroundColor="@color/colorPrimary">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/item_search_result_image"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/apodHeaderSize"
+            android:scaleType="centerCrop"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@drawable/apod_sample2" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/item_search_result_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:paddingStart="@dimen/appMargin"
+            android:paddingEnd="@dimen/appMargin"
+            android:textStyle="bold"
+            app:layout_constraintTop_toBottomOf="@id/item_search_result_image"
+            tools:text="Apollo 11 landing Apollo 11 landing Apollo 11 landing Apollo 11 " />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/item_search_result_date"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/appMarginSmall"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:paddingStart="@dimen/appMargin"
+            android:paddingEnd="@dimen/appMargin"
+            android:textStyle="italic"
+            app:layout_constraintTop_toBottomOf="@id/item_search_result_title"
+            tools:text="21-11-2019:00-0001T" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/item_search_result_description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:paddingStart="@dimen/appMargin"
+            android:paddingEnd="@dimen/appMargin"
+            android:maxLines="10"
+            android:ellipsize="end"
+            app:layout_constraintTop_toBottomOf="@id/item_search_result_date"
+            tools:text="@string/lorem_ipsum" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</com.google.android.material.card.MaterialCardView>
