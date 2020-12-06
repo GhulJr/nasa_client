@@ -15,6 +15,7 @@ import com.ghuljr.nasaclient.utils.getLifecycleObserver
 import kotlinx.android.synthetic.main.fragment_apod_details.*
 import org.koin.android.ext.android.inject
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.navArgs
 
 interface SearchResultView : BaseView<SearchResultPresenter> {
 
@@ -25,6 +26,7 @@ class SearchResultFragment : Fragment(), SearchResultView {
     private val searchResultPresenter: SearchResultPresenter by inject()
     private val retainedState: RetainedState by viewModels()
     private val lifecycleObserver: MVPLifecycleObserver<SearchResultView, SearchResultPresenter> by lazy { getLifecycleObserver() }
+    private val navArgs: SearchResultFragmentArgs by navArgs()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -39,7 +41,7 @@ class SearchResultFragment : Fragment(), SearchResultView {
         viewLifecycleOwner.lifecycle.addObserver(lifecycleObserver)
 
         NavigationUI.setupWithNavController(toolbar, findNavController())
-        toolbar.title = "#apollo"
+        toolbar.title = "#${navArgs.searchQuery}"
 
     }
 

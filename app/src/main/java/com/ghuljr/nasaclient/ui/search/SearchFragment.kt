@@ -43,9 +43,11 @@ class SearchFragment : Fragment(), SearchView {
         NavigationUI.setupWithNavController(toolbar, findNavController())
         toolbar.title = ""
 
-        search_edit_text.setOnEditorActionListener { _, actionId, _ ->
+        //TODO: do it more reactive.
+        fragment_search_edit_text.setOnEditorActionListener { _, actionId, _ ->
             if(actionId == EditorInfo.IME_ACTION_SEARCH) {
-                findNavController().navigate(SearchFragmentDirections.actionSearchFragmentToSearchResultFragment())
+                val query = fragment_search_edit_text.text.toString()
+                findNavController().navigate(SearchFragmentDirections.actionSearchFragmentToSearchResultFragment(query))
                 true
             } else false
         }

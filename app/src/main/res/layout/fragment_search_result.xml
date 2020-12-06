@@ -14,10 +14,25 @@
         android:clipToPadding="false"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/fragment_search_result_recycler_view"
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/fragment_search_result_recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+            <com.google.android.material.progressindicator.LinearProgressIndicator
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="top"
+                android:visibility="visible"
+                android:indeterminate="true"
+                app:trackThickness="1dp"
+                app:indicatorColor="@color/colorLoadingIndicator"/>
+
+        </FrameLayout>
 
     </androidx.core.widget.NestedScrollView>
 
@@ -27,7 +42,7 @@
         android:background="@color/colorBackground">
 
         <com.google.android.material.appbar.CollapsingToolbarLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
