@@ -17,6 +17,7 @@ import com.ghuljr.nasaclient.utils.getLifecycleObserver
 import org.koin.android.ext.android.inject
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.ghuljr.nasaclient.data.model.NasaMediaModel
 import kotlinx.android.synthetic.main.fragment_apod_details.toolbar
 import kotlinx.android.synthetic.main.fragment_search_result.*
@@ -33,6 +34,7 @@ class SearchResultFragment : Fragment(), SearchResultView {
     private val retainedState: RetainedState by viewModels()
     private val lifecycleObserver: MVPLifecycleObserver<SearchResultView, SearchResultPresenter> by lazy { getLifecycleObserver() }
     private val navArgs: SearchResultFragmentArgs by navArgs()
+    private lateinit var searchResultAdapter: SearchResultAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -47,8 +49,14 @@ class SearchResultFragment : Fragment(), SearchResultView {
         viewLifecycleOwner.lifecycle.addObserver(lifecycleObserver)
 
         NavigationUI.setupWithNavController(toolbar, findNavController())
+
         toolbar.title = "#${navArgs.searchQuery}"
         app_bar_layout.setExpanded(true, true)
+
+        searchResultAdapter = SearchResultAdapter { /*TODO: implement on click. */ }
+
+        fragment_search_result_recycler_view.adapter = searchResultAdapter
+        fragment_search_result_recycler_view.layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
     }
 
     override fun setLoadingViews(isLoading: Boolean) {
@@ -56,11 +64,11 @@ class SearchResultFragment : Fragment(), SearchResultView {
     }
 
     override fun displayNoResultsView(isEmptyResult: Boolean) {
-        TODO("Not yet implemented")
+        fragment_search_result_empty.isVisible = isEmptyResult
     }
 
     override fun displaySearchResult(items: List<NasaMediaModel>) {
-        TODO("Not yet implemented")
+        searchResultAdapter.searchResults = items
     }
 
     override fun getPresenter(): SearchResultPresenter = searchResultPresenter
