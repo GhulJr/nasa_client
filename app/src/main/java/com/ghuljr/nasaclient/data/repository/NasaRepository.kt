@@ -12,5 +12,5 @@ interface NasaRepository {
     fun getApodList(): Observable<List<ApodModel>>
     fun getApodById(id: Long): Observable<ApodModel>
     fun updateApod(): Observable<Resource<Void>>
-    fun searchNasaMedia(query: String): Single<List<NasaMediaModel>>
+    fun searchNasaMedia(query: String): Single<Resource<List<NasaMediaModel>>>
 }

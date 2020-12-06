@@ -25,7 +25,7 @@ class NasaRepositoryImpl(
     /* Apod */
 
     private val isApodOutdatedSingle: Single<Boolean> = storageManager.getApodsSortedByDateSingle()
-            .map { it.isEmpty() || it.first().date.isDateExpired(DAY_TIMESTAMP) }
+        .map { it.isEmpty() || it.first().date.isDateExpired(DAY_TIMESTAMP) }
 
     override fun fetchApod(): Single<Resource<ApodModel>> = apodService.fetchApod()
         .map { Resource.Success(it) as Resource<ApodModel> }
@@ -42,11 +42,10 @@ class NasaRepositoryImpl(
         }
         .flatMap {
             it.data?.let {
-                storageManager.insertApod(it)
-                    .map {
-                        if (it > 0) Resource.Success()
-                        else Resource.Error(UpToDateError)
-                    }
+                storageManager.insertApod(it).map {
+                    if (it > 0) Resource.Success()
+                    else Resource.Error(UpToDateError)
+                }
             } ?: Observable.just(it.toVoid())
         }
         .replay(1)
@@ -72,9 +71,12 @@ class NasaRepositoryImpl(
 
     /* NasaMedia */
 
-    override fun searchNasaMedia(query: String): Single<List<NasaMediaModel>> = nasaMediaService.searchNasaMedia(query)
-        .subscribeOn(Schedulers.io())
-        .map { response -> response.items.map { it.toNasaMediaModel() } }
+    override fun searchNasaMedia(query: String): Single<Resource<List<NasaMediaModel>>> =
+        nasaMediaService.searchNasaMedia(query)
+            .subscribeOn(Schedulers.io())
+            .map { response -> response.items.map { it.toNasaMediaModel() } }
+            .map { Resource.Success(it) as Resource<List<NasaMediaModel>> }
+            .onErrorReturn { Resource.Error(InternetConnectionError) }
 
 
     companion object {

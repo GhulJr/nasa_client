@@ -51,13 +51,15 @@ class SearchResultFragment : Fragment(), SearchResultView {
         NavigationUI.setupWithNavController(toolbar, findNavController())
 
         toolbar.title = "#${navArgs.searchQuery}"
-        app_bar_layout.setExpanded(true, true)
 
         searchResultAdapter = SearchResultAdapter { /*TODO: implement on click. */ }
 
         fragment_search_result_recycler_view.adapter = searchResultAdapter
         fragment_search_result_recycler_view.layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
     }
+
+    override fun getPresenter(): SearchResultPresenter = searchResultPresenter
+    override fun getState(): RetainedState = retainedState
 
     override fun setLoadingViews(isLoading: Boolean) {
         fragment_search_result_loading_indicator.isVisible = isLoading
@@ -68,9 +70,7 @@ class SearchResultFragment : Fragment(), SearchResultView {
     }
 
     override fun displaySearchResult(items: List<NasaMediaModel>) {
+        app_bar_layout.setExpanded(true, true)
         searchResultAdapter.searchResults = items
     }
-
-    override fun getPresenter(): SearchResultPresenter = searchResultPresenter
-    override fun getState(): RetainedState = retainedState
 }
