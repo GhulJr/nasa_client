@@ -1,5 +1,6 @@
 package com.ghuljr.nasaclient.utils
 
+import android.app.Activity
 import android.content.Context
 import android.view.View
 import android.view.inputmethod.InputMethodManager
@@ -19,7 +20,9 @@ fun <VIEW : BaseView<PRESENTER>, PRESENTER : BasePresenter<VIEW>> VIEW.makeSnack
         .show()
 }
 
-fun Context.expandKeyboard() {
-   val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-    imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY)
+fun Activity.setKeyboardExpand(isExpanded: Boolean) {
+    val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+
+    if(isExpanded) imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY)
+    else imm.hideSoftInputFromWindow(currentFocus?.windowToken, 0)
 }
