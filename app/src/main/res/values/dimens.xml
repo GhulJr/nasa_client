@@ -2,6 +2,7 @@
 <resources>
     <dimen name="iconSize">32dp</dimen>
     <dimen name="appMargin">16dp</dimen>
+    <dimen name="appMarginLarge">24dp</dimen>
     <dimen name="appMarginSmall">8dp</dimen>
     <dimen name="appCornerRadius">8dp</dimen>
     <dimen name="searchTextSize">16sp</dimen>

@@ -10,8 +10,8 @@
         android:id="@+id/scrollView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingBottom="?attr/actionBarSize"
         android:clipToPadding="false"
+        android:paddingBottom="?attr/actionBarSize"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <FrameLayout
@@ -21,29 +21,63 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/fragment_search_result_recycler_view"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent"/>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/fragment_search_result_empty"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:id="@+id/fragment_search_result_empty_icon"
+                    android:layout_width="128dp"
+                    android:layout_height="128dp"
+                    android:layout_marginTop="?android:actionBarSize"
+                    android:layout_marginEnd="24dp"
+                    android:src="@drawable/ic_alien"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:ignore="ContentDescription" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    app:layout_constraintTop_toBottomOf="@id/fragment_search_result_empty_icon"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:layout_marginTop="@dimen/appMargin"
+                    android:layout_marginStart="50dp"
+                    android:layout_marginEnd="50dp"
+                    android:text="@string/search_result_empty"
+                    android:textColor="@color/colorTextGray" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <com.google.android.material.progressindicator.LinearProgressIndicator
+                android:id="@+id/fragment_search_result_loading_indicator"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="top"
-                android:visibility="visible"
                 android:indeterminate="true"
-                app:trackThickness="1dp"
-                app:indicatorColor="@color/colorLoadingIndicator"/>
+                android:visibility="gone"
+                app:indicatorColor="@color/colorLoadingIndicator"
+                app:trackThickness="1dp" />
 
         </FrameLayout>
 
     </androidx.core.widget.NestedScrollView>
 
     <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/app_bar_layout"
         android:layout_width="match_parent"
         android:layout_height="200dp"
-        android:background="@color/colorBackground">
+        android:background="@color/colorBackground"
+        app:expanded="false">
 
         <com.google.android.material.appbar.CollapsingToolbarLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:animateLayoutChanges="true"
             app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
             <com.google.android.material.appbar.MaterialToolbar

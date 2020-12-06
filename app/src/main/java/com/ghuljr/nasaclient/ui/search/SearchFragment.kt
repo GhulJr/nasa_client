@@ -13,6 +13,7 @@ import com.ghuljr.nasaclient.R
 import com.ghuljr.nasaclient.ui.base.mvp.BaseView
 import com.ghuljr.nasaclient.ui.base.mvp.MVPLifecycleObserver
 import com.ghuljr.nasaclient.ui.base.mvp.RetainedState
+import com.ghuljr.nasaclient.utils.expandKeyboard
 import com.ghuljr.nasaclient.utils.getLifecycleObserver
 import kotlinx.android.synthetic.main.fragment_apod_details.toolbar
 import kotlinx.android.synthetic.main.fragment_search.*
@@ -44,6 +45,8 @@ class SearchFragment : Fragment(), SearchView {
         toolbar.title = ""
 
         //TODO: do it more reactive.
+        fragment_search_edit_text.requestFocus()
+        requireActivity().expandKeyboard()
         fragment_search_edit_text.setOnEditorActionListener { _, actionId, _ ->
             if(actionId == EditorInfo.IME_ACTION_SEARCH) {
                 val query = fragment_search_edit_text.text.toString()
