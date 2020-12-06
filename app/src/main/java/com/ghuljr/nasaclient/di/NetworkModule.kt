@@ -2,10 +2,12 @@ package com.ghuljr.nasaclient.di
 
 import android.content.Context
 import com.ghuljr.nasaclient.BuildConfig
-import com.ghuljr.nasaclient.data.source.remote.service.NasaService
+import com.ghuljr.nasaclient.data.source.remote.service.ApodService
+import com.ghuljr.nasaclient.data.source.remote.service.NasaMediaService
 import okhttp3.Cache
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
+import org.koin.core.qualifier.named
 import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
@@ -16,8 +18,10 @@ private const val API_KEY = "api_key"
 val networkModule = module {
     single { provideCache(get()) }
     factory { provideOkHttp(get()) }
-    single { provideApodRetrofit(get()) }
-    factory { provideNasaService(get()) }
+    single(named(Qualifiers.APOD)) { provideApodRetrofit(get(), BuildConfig.BASE_APOD_URL) }
+    single(named(Qualifiers.NASA_MEDIA)) { provideApodRetrofit(get(), BuildConfig.BASE_NASA_MEDIA_URL) }
+    factory { provideApodService(get(named(Qualifiers.APOD))) }
+    factory { provideNasaMediaService(get(named(Qualifiers.NASA_MEDIA))) }
 }
 
 private fun provideCache(context: Context): Cache = Cache(context.cacheDir, 1024 * 1024)
@@ -44,11 +48,12 @@ private fun provideOkHttp(cache: Cache): OkHttpClient  {
         .build()
 }
 
-private fun provideApodRetrofit(okHttpClient: OkHttpClient): Retrofit = Retrofit.Builder()
+private fun provideApodRetrofit(okHttpClient: OkHttpClient, baseUrl: String): Retrofit = Retrofit.Builder()
     .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
     .addConverterFactory(MoshiConverterFactory.create())
-    .baseUrl(BuildConfig.BASE_APOD_URL)
+    .baseUrl(baseUrl)
     .client(okHttpClient)
     .build()
 
-private fun provideNasaService(retrofit: Retrofit) = retrofit.create(NasaService::class.java)
+private fun provideApodService(retrofit: Retrofit) = retrofit.create(ApodService::class.java)
+private fun provideNasaMediaService(retrofit: Retrofit) = retrofit.create(NasaMediaService::class.java)

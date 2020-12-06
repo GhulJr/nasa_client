@@ -5,6 +5,6 @@ import com.ghuljr.nasaclient.data.repository.NasaRepositoryImpl
 import org.koin.dsl.module
 
 val repositoryModule = module {
-    single { NasaRepositoryImpl(get(), get()) }
-    single<NasaRepository> { NasaRepositoryImpl(get(), get()) }
+    single { NasaRepositoryImpl(get(), get(), get()) }
+    single<NasaRepository> { NasaRepositoryImpl(get(), get(), get()) }
 }

@@ -3,7 +3,6 @@ package com.ghuljr.nasaclient.data.repository
 import com.ghuljr.nasaclient.data.model.ApodModel
 import com.ghuljr.nasaclient.data.model.NasaMediaModel
 import com.ghuljr.nasaclient.data.source.Resource
-import com.ghuljr.nasaclient.data.source.remote.model.ApiResponse
 import io.reactivex.Observable
 import io.reactivex.Single
 

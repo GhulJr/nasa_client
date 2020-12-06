@@ -38,12 +38,12 @@ android {
 
             buildConfigField "String", "API_KEY",  "\"w81NhCXmB0mUbGQ5VGkzJMNVi1DJc6KYAENU19sC\""
             buildConfigField "String", "BASE_APOD_URL", "\"https://api.nasa.gov\""
-            buildConfigField "String", "BASE_NASA_IMAGE_URL", "\"https://images-api.nasa.gov\""
+            buildConfigField "String", "BASE_NASA_MEDIA_URL", "\"https://images-api.nasa.gov\""
         }
         debug {
             buildConfigField "String", "API_KEY",  "\"w81NhCXmB0mUbGQ5VGkzJMNVi1DJc6KYAENU19sC\""
             buildConfigField "String", "BASE_APOD_URL", "\"https://api.nasa.gov\""
-            buildConfigField "String", "BASE_NASA_IMAGE_URL", "\"https://images-api.nasa.gov\""
+            buildConfigField "String", "BASE_NASA_MEDIA_URL", "\"https://images-api.nasa.gov\""
         }
     }
 }

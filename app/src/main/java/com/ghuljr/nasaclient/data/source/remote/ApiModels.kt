@@ -1,4 +1,4 @@
-package com.ghuljr.nasaclient.data.source.remote.model
+package com.ghuljr.nasaclient.data.source.remote
 
 import com.ghuljr.nasaclient.data.model.NasaMediaModel
 import com.squareup.moshi.Json

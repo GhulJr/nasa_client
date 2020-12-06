@@ -3,8 +3,9 @@ package com.ghuljr.nasaclient.data.repository
 import com.ghuljr.nasaclient.data.model.ApodModel
 import com.ghuljr.nasaclient.data.model.NasaMediaModel
 import com.ghuljr.nasaclient.data.source.Resource
-import com.ghuljr.nasaclient.data.source.remote.model.toNasaMediaModel
-import com.ghuljr.nasaclient.data.source.remote.service.NasaService
+import com.ghuljr.nasaclient.data.source.remote.toNasaMediaModel
+import com.ghuljr.nasaclient.data.source.remote.service.ApodService
+import com.ghuljr.nasaclient.data.source.remote.service.NasaMediaService
 import com.ghuljr.nasaclient.data.source.storage.StorageManager
 import com.ghuljr.nasaclient.data.source.toVoid
 import com.ghuljr.nasaclient.ui.common.InternetConnectionError
@@ -16,7 +17,8 @@ import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers
 
 class NasaRepositoryImpl(
-    private val nasaService: NasaService,
+    private val apodService: ApodService,
+    private val nasaMediaService: NasaMediaService,
     private val storageManager: StorageManager
 ) : NasaRepository {
 
@@ -25,7 +27,7 @@ class NasaRepositoryImpl(
     private val isApodOutdatedSingle: Single<Boolean> = storageManager.getApodsSortedByDateSingle()
             .map { it.isEmpty() || it.first().date.isDateExpired(DAY_TIMESTAMP) }
 
-    override fun fetchApod(): Single<Resource<ApodModel>> = nasaService.fetchApod()
+    override fun fetchApod(): Single<Resource<ApodModel>> = apodService.fetchApod()
         .map { Resource.Success(it) as Resource<ApodModel> }
         .onErrorReturn { Resource.Error(InternetConnectionError) }
 
@@ -70,7 +72,7 @@ class NasaRepositoryImpl(
 
     /* NasaMedia */
 
-    override fun searchNasaMedia(query: String): Single<List<NasaMediaModel>> = nasaService.searchNasaMedia(query)
+    override fun searchNasaMedia(query: String): Single<List<NasaMediaModel>> = nasaMediaService.searchNasaMedia(query)
         .subscribeOn(Schedulers.io())
         .map { response -> response.items.map { it.toNasaMediaModel() } }
 
