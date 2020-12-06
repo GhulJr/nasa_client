@@ -4,6 +4,8 @@ import android.content.Context
 import com.ghuljr.nasaclient.BuildConfig
 import com.ghuljr.nasaclient.data.source.remote.service.ApodService
 import com.ghuljr.nasaclient.data.source.remote.service.NasaMediaService
+import com.squareup.moshi.Moshi
+import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import okhttp3.Cache
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -17,16 +19,22 @@ private const val API_KEY = "api_key"
 
 val networkModule = module {
     single { provideCache(get()) }
-    factory { provideOkHttp(get()) }
-    single(named(Qualifiers.APOD)) { provideApodRetrofit(get(), BuildConfig.BASE_APOD_URL) }
-    single(named(Qualifiers.NASA_MEDIA)) { provideApodRetrofit(get(), BuildConfig.BASE_NASA_MEDIA_URL) }
+    factory(named(Qualifiers.APOD)) { provideApodOkHttp(get()) }
+    factory(named(Qualifiers.NASA_MEDIA)) { provideNasaApiOkHttp(get()) }
+    factory { provideKotlinJsonAdapter() }
     factory { provideApodService(get(named(Qualifiers.APOD))) }
     factory { provideNasaMediaService(get(named(Qualifiers.NASA_MEDIA))) }
+    single(named(Qualifiers.APOD)) { provideApodRetrofit(get(named(Qualifiers.APOD)), BuildConfig.BASE_APOD_URL, get()) }
+    single(named(Qualifiers.NASA_MEDIA)) { provideApodRetrofit(get(named(Qualifiers.NASA_MEDIA)), BuildConfig.BASE_NASA_MEDIA_URL, get()) }
 }
 
 private fun provideCache(context: Context): Cache = Cache(context.cacheDir, 1024 * 1024)
 
-private fun provideOkHttp(cache: Cache): OkHttpClient  {
+private fun provideKotlinJsonAdapter(): Moshi = Moshi.Builder()
+    .add(KotlinJsonAdapterFactory())
+    .build()
+
+private fun provideApodOkHttp(cache: Cache): OkHttpClient  {
     val loggingInterceptor = HttpLoggingInterceptor()
     loggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
     return OkHttpClient.Builder()
@@ -48,9 +56,19 @@ private fun provideOkHttp(cache: Cache): OkHttpClient  {
         .build()
 }
 
-private fun provideApodRetrofit(okHttpClient: OkHttpClient, baseUrl: String): Retrofit = Retrofit.Builder()
+private fun provideNasaApiOkHttp(cache: Cache): OkHttpClient  {
+    val loggingInterceptor = HttpLoggingInterceptor()
+    loggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
+    return OkHttpClient.Builder()
+        .addInterceptor(loggingInterceptor)
+        .cache(cache)
+        .build()
+}
+
+
+private fun provideApodRetrofit(okHttpClient: OkHttpClient, baseUrl: String, moshi: Moshi): Retrofit = Retrofit.Builder()
     .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-    .addConverterFactory(MoshiConverterFactory.create())
+    .addConverterFactory(MoshiConverterFactory.create(moshi))
     .baseUrl(baseUrl)
     .client(okHttpClient)
     .build()

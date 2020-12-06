@@ -7,13 +7,14 @@ import com.ghuljr.nasaclient.ui.base.mvp.BasePresenter
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.subjects.BehaviorSubject
 import io.reactivex.subjects.PublishSubject
 
 class SearchResultPresenter(
     private val nasaRepository: NasaRepository
 ): BasePresenter<SearchResultView>() {
 
-    private val searchNasaMediaSubject: PublishSubject<String> = PublishSubject.create()
+    private val searchNasaMediaSubject: BehaviorSubject<String> = BehaviorSubject.create()
 
     private val searchNasaMediaObservable: Observable<Resource<List<NasaMediaModel>>> = searchNasaMediaSubject
         .flatMap { nasaRepository.searchNasaMedia(it).toObservable() }
@@ -25,20 +26,25 @@ class SearchResultPresenter(
         .map { it.data ?: listOf() }
         .share()
 
-    private val displaySearchResultObservable: Observable<List<NasaMediaModel>> = searchResultSuccessObservable
+    private val setSearchResultObservable: Observable<List<NasaMediaModel>> = searchResultSuccessObservable
         .filter { it.isNotEmpty() }
         .observeOn(AndroidSchedulers.mainThread())
 
-    private val displayNoResultObservable: Observable<Boolean> = searchResultSuccessObservable
+    private val isResultEmptyObservable: Observable<Boolean> = searchResultSuccessObservable
         .map { it.isEmpty() }
+        .observeOn(AndroidSchedulers.mainThread())
+
+    private val isDataLoadingObservable: Observable<Boolean> = searchNasaMediaObservable
+        .map { it is Resource.Loading }
         .observeOn(AndroidSchedulers.mainThread())
 
     override fun onViewAttached() {
         super.onViewAttached()
 
         disposable.set(CompositeDisposable(
-            displaySearchResultObservable.subscribe { view?.displaySearchResult(it) },
-            displayNoResultObservable.subscribe { view?.displayNoResultsView(it) }
+            setSearchResultObservable.subscribe { view?.displaySearchResult(it) },
+            isResultEmptyObservable.subscribe { view?.displayNoResultsView(it) },
+            isDataLoadingObservable.subscribe { view?.displayLoadingViews(it) }
         ))
     }
 

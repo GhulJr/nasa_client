@@ -9,5 +9,5 @@ import retrofit2.http.Query
 interface NasaMediaService {
 
     @GET("/search")
-    fun searchNasaMedia(@Query("q") query: String): Single<ApiResponse<NasaSearchResult>>
+    fun searchNasaMedia(@Query("q") query: String): Single<ApiResponse>
 }

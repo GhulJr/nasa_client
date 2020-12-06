@@ -5,9 +5,10 @@ import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 
 
+//TODO: make it more flexible
 @JsonClass(generateAdapter = true)
-data class ApiResponse<T>(
-    val items: List<Item<T>>,
+data class ApiResponse(
+    val items: List<Item<NasaSearchResult>>,
     val version: String,
     val links: List<Link>,
     val href: String
@@ -24,6 +25,7 @@ data class Metadata(
     @Json(name = "total_hits") val totalHits: Long?
 )
 
+@JsonClass(generateAdapter = true)
 data class Link(
     val prompt: String?,
     val rel: String?,

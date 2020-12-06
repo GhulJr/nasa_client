@@ -23,7 +23,7 @@ import kotlinx.android.synthetic.main.fragment_apod_details.toolbar
 import kotlinx.android.synthetic.main.fragment_search_result.*
 
 interface SearchResultView : BaseView<SearchResultPresenter> {
-    fun setLoadingViews(isLoading: Boolean)
+    fun displayLoadingViews(isLoading: Boolean)
     fun displayNoResultsView(isEmptyResult: Boolean)
     fun displaySearchResult(items: List<NasaMediaModel>)
 }
@@ -56,12 +56,14 @@ class SearchResultFragment : Fragment(), SearchResultView {
 
         fragment_search_result_recycler_view.adapter = searchResultAdapter
         fragment_search_result_recycler_view.layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
+
+        searchResultPresenter.searchNasaMedia(navArgs.searchQuery)
     }
 
     override fun getPresenter(): SearchResultPresenter = searchResultPresenter
     override fun getState(): RetainedState = retainedState
 
-    override fun setLoadingViews(isLoading: Boolean) {
+    override fun displayLoadingViews(isLoading: Boolean) {
         fragment_search_result_loading_indicator.isVisible = isLoading
     }
 
