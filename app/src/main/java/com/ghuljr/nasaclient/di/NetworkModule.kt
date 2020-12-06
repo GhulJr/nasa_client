@@ -16,7 +16,7 @@ private const val API_KEY = "api_key"
 val networkModule = module {
     single { provideCache(get()) }
     factory { provideOkHttp(get()) }
-    single { provideRetrofit(get()) }
+    single { provideApodRetrofit(get()) }
     factory { provideNasaService(get()) }
 }
 
@@ -44,9 +44,10 @@ private fun provideOkHttp(cache: Cache): OkHttpClient  {
         .build()
 }
 
-private fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit = Retrofit.Builder()
+private fun provideApodRetrofit(okHttpClient: OkHttpClient): Retrofit = Retrofit.Builder()
     .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
     .addConverterFactory(MoshiConverterFactory.create())
+    .baseUrl(BuildConfig.BASE_APOD_URL)
     .client(okHttpClient)
     .build()
 

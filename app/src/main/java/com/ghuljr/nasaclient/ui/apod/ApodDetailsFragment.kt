@@ -54,7 +54,8 @@ class ApodDetailsFragment : Fragment(), ApodDetailsView {
         apodTitle.text = apod.title
         apod_details_date.text = apod.date
         apod_explanation.text = apod.explanation
-        apod_details_copyright.text = getString(R.string.apod_copyright, apod.copyright)
+        if(apod.copyright.isNotEmpty())
+            apod_details_copyright.text = getString(R.string.apod_copyright, apod.copyright)
     }
 
 

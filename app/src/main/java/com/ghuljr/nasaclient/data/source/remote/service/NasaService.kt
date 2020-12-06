@@ -7,6 +7,7 @@ import com.ghuljr.nasaclient.data.source.remote.model.NasaSearchResult
 import io.reactivex.Single
 import retrofit2.Response
 import retrofit2.http.GET
+import retrofit2.http.Query
 
 interface NasaService {
 
@@ -14,5 +15,5 @@ interface NasaService {
     fun fetchApod(): Single<ApodModel>
 
     @GET("${BuildConfig.BASE_NASA_IMAGE_URL}/search")
-    fun searchNasaMedia(query: String): Single<ApiResponse<NasaSearchResult>>
+    fun searchNasaMedia(@Query("q") query: String): Single<ApiResponse<NasaSearchResult>>
 }

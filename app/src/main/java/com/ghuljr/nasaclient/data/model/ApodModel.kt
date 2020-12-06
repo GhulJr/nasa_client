@@ -9,7 +9,7 @@ import io.objectbox.annotation.Id
 @JsonClass(generateAdapter = true)
 data class ApodModel(
     @Id var id: Long = 0,
-    val copyright: String,
+    val copyright: String = "",
     val date: String,
     val explanation: String,
     @Json(name = "media_type") val mediaType: String,

@@ -1,6 +1,5 @@
 package com.ghuljr.nasaclient.data.repository
 
-import android.util.Log
 import com.ghuljr.nasaclient.data.model.ApodModel
 import com.ghuljr.nasaclient.data.model.NasaMediaModel
 import com.ghuljr.nasaclient.data.source.Resource
@@ -21,15 +20,14 @@ class NasaRepositoryImpl(
     private val storageManager: StorageManager
 ) : NasaRepository {
 
+    /* Apod */
+
     private val isApodOutdatedSingle: Single<Boolean> = storageManager.getApodsSortedByDateSingle()
             .map { it.isEmpty() || it.first().date.isDateExpired(DAY_TIMESTAMP) }
 
     override fun fetchApod(): Single<Resource<ApodModel>> = nasaService.fetchApod()
         .map { Resource.Success(it) as Resource<ApodModel> }
-        .onErrorReturn {
-            Log.e(TAG, "Fetch APoD error.", it)
-            Resource.Error(InternetConnectionError)
-        }
+        .onErrorReturn { Resource.Error(InternetConnectionError) }
 
     override fun updateApod(): Observable<Resource<Void>> = Observable.just(Unit)
         .subscribeOn(Schedulers.io())
@@ -51,12 +49,6 @@ class NasaRepositoryImpl(
         }
         .replay(1)
         .refCount()
-        .doOnNext { Log.i("UpdateApodTest", "check2 - ${it.javaClass}") }
-
-    override fun searchNasaMedia(query: String): Single<List<NasaMediaModel>> = nasaService.searchNasaMedia(query)
-        .subscribeOn(Schedulers.io())
-        .map { response -> response.items.map { it.toNasaMediaModel() } }
-
 
     override fun getLatestApod(): Observable<ApodModel> {
         return storageManager.getLatestApod()
@@ -75,6 +67,13 @@ class NasaRepositoryImpl(
             .replay(1)
             .refCount()
     }
+
+    /* NasaMedia */
+
+    override fun searchNasaMedia(query: String): Single<List<NasaMediaModel>> = nasaService.searchNasaMedia(query)
+        .subscribeOn(Schedulers.io())
+        .map { response -> response.items.map { it.toNasaMediaModel() } }
+
 
     companion object {
         private const val TAG = "NasaRepositoryImpl"
