@@ -1,7 +1,7 @@
 package com.ghuljr.nasaclient.data.source.remote.service
 
 import com.ghuljr.nasaclient.data.source.remote.ApiResponse
-import com.ghuljr.nasaclient.data.source.remote.NasaSearchResult
+import com.ghuljr.nasaclient.data.source.remote.Collection
 import io.reactivex.Single
 import retrofit2.http.GET
 import retrofit2.http.Query

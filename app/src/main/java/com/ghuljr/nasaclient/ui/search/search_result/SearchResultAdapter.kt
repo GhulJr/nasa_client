@@ -33,7 +33,6 @@ class SearchResultAdapter(
 
         fun bind(nasaModel: NasaMediaModel): Unit = with(itemView) {
             item_search_result_image.loadImage(nasaModel.thumbnailUrl)
-            item_search_result_date.text = nasaModel.date
             item_search_result_title.text = nasaModel.title
             item_search_result_description.text = nasaModel.description
             itemView.setOnClickListener { onItemClick(nasaModel) }

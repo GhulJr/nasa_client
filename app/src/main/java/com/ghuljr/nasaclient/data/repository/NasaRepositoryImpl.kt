@@ -1,5 +1,6 @@
 package com.ghuljr.nasaclient.data.repository
 
+import android.util.Log
 import com.ghuljr.nasaclient.data.model.ApodModel
 import com.ghuljr.nasaclient.data.model.NasaMediaModel
 import com.ghuljr.nasaclient.data.source.Resource
@@ -29,7 +30,10 @@ class NasaRepositoryImpl(
 
     override fun fetchApod(): Single<Resource<ApodModel>> = apodService.fetchApod()
         .map { Resource.Success(it) as Resource<ApodModel> }
-        .onErrorReturn { Resource.Error(InternetConnectionError) }
+        .onErrorReturn {
+            Log.e(TAG, "Fetch APoD error.", it)
+            Resource.Error(InternetConnectionError)
+        }
 
     override fun updateApod(): Observable<Resource<Void>> = Observable.just(Unit)
         .subscribeOn(Schedulers.io())
@@ -74,9 +78,13 @@ class NasaRepositoryImpl(
     override fun searchNasaMedia(query: String): Single<Resource<List<NasaMediaModel>>> =
         nasaMediaService.searchNasaMedia(query)
             .subscribeOn(Schedulers.io())
+            .map { it.collection }
             .map { response -> response.items.map { it.toNasaMediaModel() } }
             .map { Resource.Success(it) as Resource<List<NasaMediaModel>> }
-            .onErrorReturn { Resource.Error(InternetConnectionError) }
+            .onErrorReturn {
+                Log.e("TAG", "Fetch searching nasa media result error.", it)
+                Resource.Error(InternetConnectionError)
+            }
 
 
     companion object {
