@@ -13,6 +13,9 @@
         <action
             android:id="@+id/action_feedFragment_to_apodDetailsFragment"
             app:destination="@id/apodDetailsFragment" />
+        <action
+            android:id="@+id/action_feedFragment_to_searchFragment"
+            app:destination="@id/searchFragment" />
     </fragment>
     <fragment
         android:id="@+id/apodDetailsFragment"
@@ -22,5 +25,31 @@
         <argument
             android:name="apodId"
             app:argType="long" />
+        <argument
+            android:name="apod"
+            app:argType="com.ghuljr.nasaclient.data.model.ApodModel"
+            app:nullable="true"
+            android:defaultValue="@null" />
+    </fragment>
+    <fragment
+        android:id="@+id/searchFragment"
+        android:name="com.ghuljr.nasaclient.ui.search.SearchFragment"
+        android:label="@string/search"
+        tools:layout="@layout/fragment_search" >
+        <action
+            android:id="@+id/action_searchFragment_to_searchResultFragment"
+            app:destination="@id/searchResultFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/searchResultFragment"
+        android:name="com.ghuljr.nasaclient.ui.search.search_result.SearchResultFragment"
+        android:label="fragment_search_result"
+        tools:layout="@layout/fragment_search_result" >
+        <argument
+            android:name="search_query"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_searchResultFragment_to_apodDetailsFragment"
+            app:destination="@id/apodDetailsFragment" />
     </fragment>
 </navigation>

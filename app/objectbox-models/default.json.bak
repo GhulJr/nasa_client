@@ -5,7 +5,7 @@
   "entities": [
     {
       "id": "1:5416774124151556504",
-      "lastPropertyId": "7:4952656892215047759",
+      "lastPropertyId": "9:960435691213913791",
       "name": "ApodModel",
       "properties": [
         {
@@ -38,12 +38,66 @@
           "id": "6:7894549345868256475",
           "name": "url",
           "type": 9
+        },
+        {
+          "id": "8:8421606617245522314",
+          "name": "copyright",
+          "type": 9
+        },
+        {
+          "id": "9:960435691213913791",
+          "name": "hdurl",
+          "type": 9
+        }
+      ],
+      "relations": []
+    },
+    {
+      "id": "2:2639072003584594943",
+      "lastPropertyId": "7:6425242985980158115",
+      "name": "NasaMediaModel",
+      "properties": [
+        {
+          "id": "1:3392720228484191017",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "2:5490672983171969990",
+          "name": "nasaId",
+          "type": 9
+        },
+        {
+          "id": "3:4665439177732688928",
+          "name": "mediaType",
+          "type": 9
+        },
+        {
+          "id": "4:2710112354887719998",
+          "name": "date",
+          "type": 9
+        },
+        {
+          "id": "5:7673457116035336864",
+          "name": "description",
+          "type": 9
+        },
+        {
+          "id": "6:7227337763541840757",
+          "name": "title",
+          "type": 9
+        },
+        {
+          "id": "7:6425242985980158115",
+          "name": "center",
+          "type": 9
         }
       ],
       "relations": []
     }
   ],
-  "lastEntityId": "1:5416774124151556504",
+  "lastEntityId": "2:2639072003584594943",
   "lastIndexId": "0:0",
   "lastRelationId": "0:0",
   "lastSequenceId": "0:0",

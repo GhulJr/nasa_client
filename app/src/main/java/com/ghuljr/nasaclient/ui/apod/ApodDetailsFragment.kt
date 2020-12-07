@@ -46,7 +46,10 @@ class ApodDetailsFragment : Fragment(), ApodDetailsView {
         NavigationUI.setupWithNavController(toolbar, findNavController())
         toolbar.title = ""
 
-        apodDetailsPresenter.getApodDetails(args.apodId)
+        if(args.apod == null)
+            apodDetailsPresenter.getApodDetails(args.apodId)
+        else
+            displayApod(args.apod as ApodModel)
     }
 
     override fun displayApod(apod: ApodModel) {
@@ -54,7 +57,8 @@ class ApodDetailsFragment : Fragment(), ApodDetailsView {
         apodTitle.text = apod.title
         apod_details_date.text = apod.date
         apod_explanation.text = apod.explanation
-        apod_details_copyright.text = getString(R.string.apod_copyright, apod.copyright)
+        if(apod.copyright.isNotEmpty())
+            apod_details_copyright.text = getString(R.string.apod_copyright, apod.copyright)
     }
 
 

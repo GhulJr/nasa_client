@@ -1,7 +1,5 @@
 package com.ghuljr.nasaclient.ui.splash
 
-import android.util.Log
-import com.ghuljr.nasaclient.data.model.ApodModel
 import com.ghuljr.nasaclient.data.repository.NasaRepository
 import com.ghuljr.nasaclient.data.source.Resource
 import com.ghuljr.nasaclient.ui.base.mvp.BasePresenter
@@ -41,7 +39,7 @@ class SplashPresenter(
         .map { Unit }
         .observeOn(AndroidSchedulers.mainThread())
 
-    private val showApodErrorObservable: Observable<Unit> = shouldLaunchAppObservable
+    private val setApodErrorObservable: Observable<Unit> = shouldLaunchAppObservable
         .filter { !it }
         .map { Unit }
         .observeOn(AndroidSchedulers.mainThread())
@@ -56,7 +54,7 @@ class SplashPresenter(
         disposable.set(CompositeDisposable(
             redirectToAppObservable.subscribe { view?.redirectToMainActivity() },
             redirectToAppWithErrorObservable.subscribe { view?.redirectToMainActivity() },
-            showApodErrorObservable.subscribe { view?.displayErrorDialog() },
+            setApodErrorObservable.subscribe { view?.displayErrorDialog() },
             isDataLoadingObservable.subscribe { view?.displayLoadingView(it) }
         ))
     }

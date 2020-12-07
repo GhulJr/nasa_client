@@ -10,8 +10,6 @@ import io.objectbox.kotlin.boxFor
 import org.koin.core.qualifier.named
 import org.koin.dsl.module
 
-enum class Qualifiers { APOD }
-
 val storageModule = module {
     single { provideObjectBox(get()) }
     factory(named(Qualifiers.APOD)) { provideApodBox(get()) }
