@@ -46,7 +46,10 @@ class ApodDetailsFragment : Fragment(), ApodDetailsView {
         NavigationUI.setupWithNavController(toolbar, findNavController())
         toolbar.title = ""
 
-        apodDetailsPresenter.getApodDetails(args.apodId)
+        if(args.apod == null)
+            apodDetailsPresenter.getApodDetails(args.apodId)
+        else
+            displayApod(args.apod as ApodModel)
     }
 
     override fun displayApod(apod: ApodModel) {

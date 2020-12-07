@@ -25,6 +25,11 @@
         <argument
             android:name="apodId"
             app:argType="long" />
+        <argument
+            android:name="apod"
+            app:argType="com.ghuljr.nasaclient.data.model.ApodModel"
+            app:nullable="true"
+            android:defaultValue="@null" />
     </fragment>
     <fragment
         android:id="@+id/searchFragment"
@@ -43,5 +48,8 @@
         <argument
             android:name="search_query"
             app:argType="string" />
+        <action
+            android:id="@+id/action_searchResultFragment_to_apodDetailsFragment"
+            app:destination="@id/apodDetailsFragment" />
     </fragment>
 </navigation>

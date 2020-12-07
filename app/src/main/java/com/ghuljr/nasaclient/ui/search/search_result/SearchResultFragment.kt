@@ -18,6 +18,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
+import com.ghuljr.nasaclient.data.model.ApodModel
 import com.ghuljr.nasaclient.data.model.NasaMediaModel
 import com.ghuljr.nasaclient.utils.RecyclerViewSeparator
 import kotlinx.android.synthetic.main.fragment_apod_details.toolbar
@@ -53,7 +54,20 @@ class SearchResultFragment : Fragment(), SearchResultView {
 
         toolbar.title = "#${navArgs.searchQuery}"
 
-        searchResultAdapter = SearchResultAdapter { /*TODO: implement on click. */ }
+        searchResultAdapter = SearchResultAdapter {
+            findNavController().navigate(SearchResultFragmentDirections.actionSearchResultFragmentToApodDetailsFragment(
+                0L, ApodModel(
+                    id = it.id,
+                    copyright = it.center,
+                    date = it.date,
+                    explanation = it.description,
+                    mediaType = it.mediaType,
+                    title = it.title,
+                    url = it.thumbnailUrl,
+                    hdurl = it.thumbnailUrl
+                )
+            ))
+        }
 
         fragment_search_result_recycler_view.adapter = searchResultAdapter
         fragment_search_result_recycler_view.layoutManager = StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL)
